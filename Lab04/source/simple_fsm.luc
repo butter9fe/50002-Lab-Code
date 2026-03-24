@@ -1,0 +1,68 @@
+module simple_fsm (
+    input clk,  // clock
+    input rst,  // reset
+    input slow_clock, // so it's visible to human eye!
+    input start, // button for state transition
+    output led_indicator[8],
+    output index_value[2] // determines whether to continue to LOOP or HALT
+) {
+    
+    enum States {
+        START, // b00
+        LOOP,  // b01
+        CHECK_RESULT, // b10 
+        HALT // b11
+    }
+    
+    // Detect when slow clock has a rising edge (when slow clock hits 1!)
+    edge_detector rising_edge(.clk(clk), .in(slow_clock), #RISE(1), #FALL(0))
+    // Detect when button 'press' event
+    edge_detector rising_edge_start(.clk(clk), .in(start), #RISE(1), #FALL(0))
+    
+    // *Lab actually inits this to 'Start', but for easier testing, initialising it to HALT
+    dff states[$width(States)](#INIT(States.HALT), .clk(clk), .rst(rst))
+    dff index[2](.clk(clk), .rst(rst), #INIT(0))
+    
+    always {
+        index_value = index.q
+        states.d = states.q
+        index.d = index.q
+        led_indicator = 0
+        
+        case(states.q){
+            States.START:
+                led_indicator = 8h01
+                index.d = 0
+                
+            // Only transition between every state when slow_clock is 1
+                if (rising_edge.out)
+                    states.d = States.LOOP
+            
+            States.LOOP:
+                led_indicator = 8h0F
+                if (rising_edge.out) {
+                    index.d = index.q + 1
+                    states.d = States.CHECK_RESULT   
+                }
+            
+            States.CHECK_RESULT:
+                led_indicator = 8hF0
+                if (rising_edge.out) {
+                    if (~|(index.q ^ b10)){
+                        states.d = States.HALT
+                    }
+                    else{
+                        states.d = States.LOOP
+                    }
+                }
+                
+            States.HALT:
+                led_indicator = 8hFF
+                // Button press always detected
+                if(rising_edge_start.out) {
+                    index.d = 0
+                    states.d = States.START
+                }
+        }
+    }
+}

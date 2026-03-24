@@ -1,0 +1,33 @@
+module decoder2to4 (
+    input v,
+    input a0,
+    input a1,
+    output y0,
+    output y1, 
+    output y2,
+    output y3
+) {
+     decoder1to2 decoder1to2[3]
+    
+    always {
+        // Produce E0 (D1's Y0) and E1 (D1's Y1) from MSB (A1)
+        decoder1to2.v[0] = v;
+        decoder1to2.a[0] = a1;
+        
+        // Use E0 to enable D2 that act on LSB (A0)
+        decoder1to2.v[1] = decoder1to2.y0[0];
+        decoder1to2.a[1] = a0;
+        
+        // Use E1 to enable D3 that act on LSB (A1)
+        decoder1to2.v[2] = decoder1to2.y1[0];
+        decoder1to2.a[2] = a0;
+        
+        // Connect Y0 & Y1 to Decoder 2's Y0 and Y1
+        y0 = decoder1to2.y0[1];
+        y1 = decoder1to2.y1[1];
+        
+        // Connect Y2 & Y3 to Decoder 3's Y0 and Y1
+        y2 = decoder1to2.y0[2];
+        y3 = decoder1to2.y1[2];
+    }
+}

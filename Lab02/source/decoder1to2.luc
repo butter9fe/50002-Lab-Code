@@ -1,0 +1,11 @@
+module decoder1to2 (
+    input v,
+    input a,
+    output y0, 
+    output y1
+) {
+    always {
+        y0 = ~a & v;
+        y1 = a & v;
+    }
+}

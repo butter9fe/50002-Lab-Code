@@ -1,0 +1,207 @@
+module alchitry_top (
+    input clk,              // 100MHz clock
+    input rst_n,            // reset button (active low)
+    output led[8],          // 8 user controllable LEDs
+    input usb_rx,           // USB->Serial input
+    output usb_tx,          // USB->Serial output
+    // VGA output (1-bit per channel through 470ohm resistor DAC)
+    output vga_r,
+    output vga_g,
+    output vga_b,
+    output vga_hs,
+    output vga_vs,
+    // Buttons on Br Wings
+    input io_button[5],
+    /* DDR3 Connections */
+    inout ddr3_dq[16],
+    inout ddr3_dqs_n[2],
+    inout ddr3_dqs_p[2],
+    output ddr3_addr[14],
+    output ddr3_ba[3],
+    output ddr3_ras_n,
+    output ddr3_cas_n,
+    output ddr3_we_n,
+    output ddr3_reset_n,
+    output ddr3_ck_p,
+    output ddr3_ck_n,
+    output ddr3_cke,
+    output ddr3_cs_n,
+    output ddr3_dm[2],
+    output ddr3_odt
+) {
+    // Clock generator: 100MHz in -> 100MHz + 200MHz out
+    clk_wiz_0 clk_wiz(.resetn(rst_n), .clk_in(clk))
+
+    // DDR3 MIG wrapper — provides ui_clk (81.25MHz)
+    mig_wrapper mig (
+        .ddr3_dq(ddr3_dq),
+        .ddr3_dqs_n(ddr3_dqs_n),
+        .ddr3_dqs_p(ddr3_dqs_p),
+        .sys_rst(!clk_wiz.locked),
+        .sys_clk(clk_wiz.clk_100),
+        .clk_ref(clk_wiz.clk_200)
+    )
+
+    // Direct-mapped BRAM cache — replaces 4-entry LRU cache
+    // Reference: nklabs icache.v, 256 lines x 16 bytes = 4KB
+    // Verilog module with flat MIG ports, instantiated directly
+    ddr3_cache cache(.clk(mig.ui_clk), .resetn(~mig.sync_rst))
+
+    // PicoRV32 SoC — runs on ui_clk (81.25MHz) from MIG
+    picorv32_soc soc(
+        .sys_clk(mig.ui_clk),
+        .resetn(~mig.sync_rst)
+    )
+
+    // Framebuffer: 64000 bytes (320x200 pixels, 8-bit palette index each)
+    // Write: CPU on ui_clk | Read: VGA on 100MHz clk
+    simple_dual_port_ram fb_ram(#WIDTH(8), #ENTRIES(64000), .wclk(mig.ui_clk), .rclk(clk))
+
+    // Palette: 256 entries of 24-bit RGB
+    // Write: CPU on ui_clk | Read: VGA on 100MHz clk
+    simple_dual_port_ram pal_ram(#WIDTH(24), #ENTRIES(256), .wclk(mig.ui_clk), .rclk(clk))
+
+    // VGA timing state — 100MHz clock domain
+    dff pix_ctr[2](.clk(clk), .rst(!clk_wiz.locked))
+    dff h_ctr[10](.clk(clk), .rst(!clk_wiz.locked))
+    dff v_ctr[10](.clk(clk), .rst(!clk_wiz.locked))
+    // 2-stage pipeline delay to match framebuffer+palette read latency
+    dff active_d1(.clk(clk), .rst(!clk_wiz.locked))
+    dff active_d2(.clk(clk), .rst(!clk_wiz.locked))
+    
+    // Button conditioners:
+    // Edge detection is alr handled in doomgeneric's riscv code, 
+    // so we just need to debounce the buttons
+    // CLK_FREQ should match ui_clk (81.25MHz) to match the SoC's clock domain
+    const CLK_FREQ = $is_sim() ? 1000 : 81250000
+    button_conditioner btn_up (.clk(mig.ui_clk), #CLK_FREQ(CLK_FREQ), .in(io_button[0]))
+    button_conditioner btn_down (.clk(mig.ui_clk), #CLK_FREQ(CLK_FREQ), .in(io_button[2]))
+    button_conditioner btn_left (.clk(mig.ui_clk), #CLK_FREQ(CLK_FREQ), .in(io_button[3]))
+    button_conditioner btn_right (.clk(mig.ui_clk), #CLK_FREQ(CLK_FREQ), .in(io_button[4]))
+    button_conditioner btn_select (.clk(mig.ui_clk), #CLK_FREQ(CLK_FREQ), .in(io_button[1]))
+
+    always {
+        /* DDR3 physical pins */
+        ddr3_addr = mig.ddr3_addr
+        ddr3_ba = mig.ddr3_ba
+        ddr3_ras_n = mig.ddr3_ras_n
+        ddr3_cas_n = mig.ddr3_cas_n
+        ddr3_we_n = mig.ddr3_we_n
+        ddr3_reset_n = mig.ddr3_reset_n
+        ddr3_ck_p = mig.ddr3_ck_p
+        ddr3_ck_n = mig.ddr3_ck_n
+        ddr3_cke = mig.ddr3_cke
+        ddr3_cs_n = mig.ddr3_cs_n
+        ddr3_dm = mig.ddr3_dm
+        ddr3_odt = mig.ddr3_odt
+
+        // ddr3_cache <-> MIG memory interface (flat signals)
+        mig.mem_in.addr = cache.mig_addr
+        mig.mem_in.cmd = cache.mig_cmd
+        mig.mem_in.enable = cache.mig_enable
+        mig.mem_in.wr_data = cache.mig_wr_data
+        mig.mem_in.wr_enable = cache.mig_wr_enable
+        mig.mem_in.wr_mask = cache.mig_wr_mask
+        cache.mig_rdy = mig.mem_out.rdy
+        cache.mig_rd_data = mig.mem_out.rd_data
+        cache.mig_rd_valid = mig.mem_out.rd_valid
+        cache.mig_wr_rdy = mig.mem_out.wr_rdy
+
+        // ddr3_cache <-> SoC DDR3 read interface
+        cache.rd_addr = soc.ddr_rd_addr
+        cache.rd_cmd_valid = soc.ddr_rd_cmd_valid
+        soc.ddr_rd_ready = cache.rd_ready
+        soc.ddr_rd_data = cache.rd_data
+        soc.ddr_rd_data_valid = cache.rd_data_valid
+
+        // ddr3_cache <-> SoC DDR3 write interface
+        cache.wr_addr = soc.ddr_wr_addr
+        cache.wr_data = soc.ddr_wr_data
+        cache.wr_strb = soc.ddr_wr_strb
+        cache.wr_valid = soc.ddr_wr_valid
+        soc.ddr_wr_ready = cache.wr_ready
+
+        // UART: simpleuart inside SoC, directly to FTDI pins
+        soc.ser_rx = usb_rx
+        usb_tx = soc.ser_tx
+
+        // Button inputs to SoC: bit0=up, bit1=fire, bit2=down, bit3=left, bit4=right
+        soc.buttons_raw = c{btn_right.out, btn_left.out, btn_down.out, btn_select.out, btn_up.out}
+
+        // LEDs driven by PicoRV32 SoC
+        led = soc.gpio_led
+
+        // ---- Framebuffer write from SoC ----
+        fb_ram.waddr = soc.fb_waddr
+        fb_ram.write_data = soc.fb_wdata
+        fb_ram.write_enable = soc.fb_wen
+
+        // ---- Palette write from SoC ----
+        pal_ram.waddr = soc.pal_waddr
+        pal_ram.write_data = soc.pal_wdata
+        pal_ram.write_enable = soc.pal_wen
+
+        // ---- VGA 640x480 @ 60Hz, 25MHz pixel clock (100MHz / 4) ----
+        pix_ctr.d = pix_ctr.q + 1
+
+        h_ctr.d = h_ctr.q
+        v_ctr.d = v_ctr.q
+
+        if (pix_ctr.q == 2b11) {
+            if (h_ctr.q == 799) {
+                h_ctr.d = 0
+                if (v_ctr.q == 524) {
+                    v_ctr.d = 0
+                } else {
+                    v_ctr.d = v_ctr.q + 1
+                }
+            } else {
+                h_ctr.d = h_ctr.q + 1
+            }
+        }
+
+        // Sync signals (active low, negative polarity)
+        // HSYNC: active during h_ctr 656..751 (96 pixel clocks)
+        // VSYNC: active during v_ctr 490..491 (2 lines)
+        vga_hs = !(h_ctr.q >= 656 && h_ctr.q < 752)
+        vga_vs = !(v_ctr.q >= 490 && v_ctr.q < 492)
+
+        // ---- Framebuffer read pipeline ----
+        // 320x200 doubled to 640x400, centered in 640x480
+        // Active rows: 40..439 (400 lines = 200 doubled)
+        // fb_x = h_ctr / 2      (0..319)
+        // fb_y = (v_ctr-40) / 2 (0..199)
+        // fb_addr = fb_y * 320 + fb_x
+        //         = (fb_y << 8) + (fb_y << 6) + fb_x
+        sig fb_y[16]
+        sig fb_addr[16]
+
+        fb_y = (v_ctr.q - 40) >> 1
+        fb_addr = (fb_y << 8) + (fb_y << 6) + (h_ctr.q >> 1)
+
+        // Stage 1: set framebuffer read address
+        fb_ram.raddr = fb_addr
+
+        // Stage 2: framebuffer output (palette index) drives palette address
+        // (1 clock cycle after raddr is set, fb_ram.read_data is valid)
+        pal_ram.raddr = fb_ram.read_data
+
+        // Active area flag with 2-cycle pipeline delay
+        sig active
+        active = h_ctr.q < 640 && v_ctr.q >= 40 && v_ctr.q < 440
+        active_d1.d = active
+        active_d2.d = active_d1.q
+
+        // Output RGB: 1 bit per channel (MSB of each 8-bit component)
+        // pal_ram.read_data[23:16] = Red, [15:8] = Green, [7:0] = Blue
+        if (active_d2.q) {
+            vga_r = pal_ram.read_data[23]
+            vga_g = pal_ram.read_data[15]
+            vga_b = pal_ram.read_data[7]
+        } else {
+            vga_r = 0
+            vga_g = 0
+            vga_b = 0
+        }
+    }
+}

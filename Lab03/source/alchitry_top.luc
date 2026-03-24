@@ -1,0 +1,64 @@
+module alchitry_top (
+    input clk,              // 100MHz clock
+    input rst_n,            // reset button (active low)
+    output led[8],          // 8 user controllable LEDs
+    input usb_rx,           // USB->Serial input
+    output usb_tx,          // USB->Serial output
+    output io_led[3][8],    // LEDs on IO Shield
+    output io_segment[8],   // 7-segment LEDs on IO Shield
+    output io_select[4],    // Digit select on IO Shield
+    input io_button[5],     // 5 buttons on IO Shield
+    input io_dip[3][8]      // DIP switches on IO Shield
+) {
+
+    sig rst                 // reset signal
+    
+    // create 1-bit dff
+    dff x(.clk(clk), .rst(rst), #INIT(b1))
+
+    // create 8-bit dff
+    dff y[8](.clk(clk), .rst(rst), #INIT(0))
+    
+    // Reset conditioner
+    reset_conditioner reset_cond(.clk(clk))
+    
+    // Slow system clock (1000HZ) down to ~1HZ
+    counter slow_clock(#DIV(9), .clk(clk), .rst(rst), #SIZE(1))
+    
+    // Create 3 types of rcas connected to the same io_dip inputs
+    registered_rca_en rr_en(#SIZE(8), .a(io_dip[0]), .b(io_dip[1]), .clk(clk), .rst(rst),.enable(io_button[0]))
+    registered_rca rr(#SIZE(8), .a(io_dip[0]), .b(io_dip[1]), .clk(slow_clock.value), .rst(rst))
+    rca rca(#SIZE(8), .a(io_dip[0]), .b(io_dip[1]), .cin(1b0))
+    
+    always {
+        reset_cond.in = ~rst_n  // input raw inverted reset signal
+        rst = reset_cond.out    // conditioned reset
+        
+        led = 8h00              // turn LEDs off
+        
+        usb_tx = usb_rx         // loop serial port
+        
+        io_led = 3x{{8h00}}
+        io_segment = 8hff
+        io_select = 4hf
+        
+        x.d = ~x.q // invert the 1-bit stored value each clock cycle (so that the LED blinks)
+        y.d = y.q + 1b1 // increment the 8-bit stored value by 1 each clock cycle
+        
+        /* DFF Experimentation
+        io_led[1][0] = x.q // 1-bit dff output
+        io_led[0] = y.q // whole row as 8-bit dff's output
+        
+        // Storing the state of current io_dip when button is pressed
+        y.d = y.q // loop the same value under normal circumstances
+        if (io_button[0]){
+            y.d = io_dip[0]
+        }
+        */
+        
+        // Comparing 3 types of RCAs
+        io_led[0] = rr.s
+        io_led[1] = rca.s
+        io_led[2] = rr_en.s
+    }
+}

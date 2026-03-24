@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Mar 17 01:07:53 2026
+# Process ID         : 169602
+# Current directory  : /home/stardust/Sharedspace/School/Term 4/Computational structures/DOOM 1/cores/managed_ip_project/managed_ip_project.runs/mig_7series_0_synth_1
+# Command line       : vivado -log mig_7series_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mig_7series_0.tcl
+# Log file           : /home/stardust/Sharedspace/School/Term 4/Computational structures/DOOM 1/cores/managed_ip_project/managed_ip_project.runs/mig_7series_0_synth_1/mig_7series_0.vds
+# Journal file       : /home/stardust/Sharedspace/School/Term 4/Computational structures/DOOM 1/cores/managed_ip_project/managed_ip_project.runs/mig_7series_0_synth_1/vivado.jou
+# Running On         : Tachyon
+# Platform           : EndeavourOS
+# Operating System   : EndeavourOS Linux
+# Processor Detail   : Intel(R) Core(TM) i7-14650HX
+# CPU Frequency      : 800.304 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 24
+# Host memory        : 33404 MB
+# Swap memory        : 17179 MB
+# Total Virtual      : 50584 MB
+# Available Virtual  : 42618 MB
+#-----------------------------------------------------------
+source mig_7series_0.tcl -notrace

@@ -1,0 +1,48 @@
+testbench test_rca {
+    sig clk
+    sig rst
+   
+    fun tick_clock() {
+        clk = 1
+        $tick() // tick without capturing signals
+        clk = 0
+        $tick()
+    }
+    
+    fun tick_clock_rising(){
+        clk = 0
+        $tick()
+        clk = 1
+        $tick()
+    }
+    
+    // Test for: 
+    // Both Zeroes, 1 Zero, One-Byte Addition, Overflow
+    // Max Positive + 1, Min Negative + Min Negative, Alternative Bits, All Ones
+    const A_INPUTS = {8h00, 8h01, 8h01, 8hFF, 8h7F, 8h80, 8h55, 8hFF}
+    const B_INPUTS = {8h00, 8h00, 8h01, 8h01, 8h01, 8h80, 8h55, 8hFF}
+    const SUMS     = {8h00, 8h01, 8h02, 8h00, 8h80, 8h00, 8hAA, 8hFE}
+    const NUM_TESTS = 8
+    
+    registered_rca rr(#SIZE(8), .clk(clk), .rst(rst))
+    test registered_rca_basic {
+        clk = 0
+        rst = 1
+        $tick()          // reset
+        rst = 0
+
+        repeat(i, NUM_TESTS) {
+            // 1. Apply inputs for test i
+            rr.a = A_INPUTS[i]
+            rr.b = B_INPUTS[i]
+
+            // 2. Advance two clock cycles
+            $tick_clock_rising()
+            $tick_clock_rising()
+
+            // 3. Now the output corresponds to A_INPUTS[i], B_INPUTS[i]
+            $assert(rr.s == SUMS[i])
+            $print("Test %d OK --- a: %d, b: %d | s: %d, answer key s: %d", i, A_INPUTS[i], B_INPUTS[i], rr.s, SUMS[i])
+        }
+    }
+}

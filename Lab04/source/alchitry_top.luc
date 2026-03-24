@@ -1,0 +1,69 @@
+module alchitry_top #(
+        NUM_TESTS = 8 : NUM_TESTS > 0,
+        SIZE = 8 : SIZE > 0 
+    )(
+    input clk,              // 100MHz clock
+    input rst_n,            // reset button (active low)
+    output led[8],          // 8 user controllable LEDs
+    input usb_rx,           // USB->Serial input
+    output usb_tx,          // USB->Serial output
+    output io_led[3][8],    // LEDs on IO Shield
+    output io_segment[8],   // 7-segment LEDs on IO Shield
+    output io_select[4],    // Digit select on IO Shield
+    input io_button[5],     // 5 buttons on IO Shield
+    input io_dip[3][8]      // DIP switches on IO Shield
+) {
+
+    sig rst                 // reset signal
+
+    // Reset conditioner
+    reset_conditioner reset_cond(.clk(clk))
+    
+    // Button conditioner
+    // Simulation is 1000HZ vs Hardware is 1000Mhz, so slow down depending on which we're using
+    button_conditioner start_button(.clk(clk), #CLK_FREQ($is_sim() ? 1000 : 100000000), .in(io_button[1]))
+    
+    // Slow system clock (1000HZ in sim/1000Mhz in hardware) down to ~1HZ
+    // Original was 28, but it's a bit too slow!
+    counter slow_clock(#DIV($is_sim()? 9 : 26), .clk(clk), .rst(rst), #SIZE(1))
+    
+    // Create RCA tester
+    rca_tester_datapath tester_datapath(.rst(rst), .clk(clk), #NUM_TESTS(NUM_TESTS), #SIZE(SIZE))
+    rca_tester_controlunit tester_controlunit(.rst(rst), .clk(clk), .slow_clock(slow_clock.value), .start_press(start_button.out))
+        
+    // For 7-segment LED
+    seven_segment_encoder encoder
+    
+    always {
+        reset_cond.in = ~rst_n  // input raw inverted reset signal
+        rst = reset_cond.out    // conditioned reset    
+        usb_tx = usb_rx         // loop serial port
+        
+        led = 8h00 // turn LEDs off  
+        io_led = 3x{{8h00}}
+        io_segment = 8hff
+        io_select = 4hf
+        
+        // Set forced mask to leftmost io_dip
+        tester_datapath.force_error_mask = io_dip[2][7]
+        
+        // Update control signals
+        tester_datapath.index_load_zero = tester_controlunit.index_load_zero
+        tester_datapath.index_inc = tester_controlunit.index_inc
+        tester_datapath.sample_enable = tester_controlunit.sample_enable
+        tester_controlunit.last_index = tester_datapath.last_index
+        tester_controlunit.equal = tester_datapath.success
+        
+        // Display output
+        io_led[2] = tester_datapath.curr_index
+        io_led[1] = tester_datapath.rca_s // rca's s value
+        io_led[0] = tester_datapath.test_s // expected s value
+        led[5:0] = tester_controlunit.curr_state // top 5 LEDs display the current state in binary
+        led[7] = tester_controlunit.error // last LED displays whether an error has occured
+        
+        // Display 7-segment LED
+        encoder.char = tester_datapath.curr_index
+        io_segment = ~c{1b1, encoder.segs} // Keep decimal point OFF, then display the 7 bits
+        io_select = ~4b0001 // Activate only right-most digit
+    }
+}

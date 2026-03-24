@@ -1,0 +1,12 @@
+module full_adder (
+    input a,
+    input b,
+    input cin,
+    output s,
+    output cout
+) {
+    always {
+        s = a ^ b ^ cin; // XOR gates
+        cout = (a & b) | (a & cin) | (b & cin); // AB + ACin + BCin
+    }
+}

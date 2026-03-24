@@ -1,0 +1,27 @@
+module registered_rca#(
+        SIZE = 8 : SIZE > 0
+    ) (
+        // RCA ports
+        input a[SIZE],  
+        input b[SIZE],  
+        output s[SIZE],
+    
+        // for dff
+        input clk, 
+        input rst
+    ) {
+
+        dff value_a[SIZE](.clk(clk), .rst(rst), #INIT(0)) // input
+        dff value_b[SIZE](.clk(clk), .rst(rst), #INIT(0)) // input
+        dff value_s[SIZE](.clk(clk), .rst(rst), #INIT(0)) // output
+        
+        rca rca(#SIZE(SIZE), .a(value_a.q), .b(value_b.q), .cin(0))
+
+        always {
+            s = value_s.q
+            
+            value_a.d = a
+            value_b.d = b 
+            value_s.d = rca.s    
+        }
+    }

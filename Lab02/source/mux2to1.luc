@@ -1,0 +1,10 @@
+module mux2to1 (
+    input data0,
+    input data1,
+    input s,
+    output y
+) {
+    always {
+        y = (~s & data0) | (s & data1); // ~SD0 + SD1
+    }
+}

@@ -1,0 +1,126 @@
+{
+    "project": {
+        "type": "V1.3",
+        "projectName": "DOOM 1",
+        "board": "Alchitry Au",
+        "sourceFiles": [
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/alchitry_top.luc"
+                },
+                "top": true
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/picorv32.v"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/picorv32_soc.v"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/bram.v"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/ddr3_cache.v"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Memory/simple_dual_port_ram.v"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Memory/fifo.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/simpleuart.v"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Miscellaneous/pipeline.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Memory/ddr_arbiter.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Memory/mig_wrapper.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Conditioning/button_conditioner.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Pulses/edge_detector.luc"
+                }
+            }
+        ],
+        "constraintFiles": [
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "constraint/alchitry.acf"
+                }
+            }
+        ],
+        "ipCores": [
+            {
+                "name": "clk_wiz_0",
+                "stub": {
+                    "file": {
+                        "type": "DiskFile",
+                        "path": "cores/clk_wiz_0/clk_wiz_0_stub.v"
+                    }
+                },
+                "files": [
+                    {
+                        "path": "cores/clk_wiz_0/clk_wiz_0.xci"
+                    }
+                ]
+            },
+            {
+                "name": "mig_7series_0",
+                "stub": {
+                    "file": {
+                        "type": "DiskFile",
+                        "path": "cores/mig_7series_0/mig_7series_0_stub.v"
+                    }
+                },
+                "files": [
+                    {
+                        "path": "cores/mig_7series_0/mig_7series_0.xci"
+                    }
+                ]
+            }
+        ]
+    }
+}

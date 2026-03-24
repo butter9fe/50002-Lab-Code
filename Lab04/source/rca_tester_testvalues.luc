@@ -1,0 +1,22 @@
+module rca_tester_testvalues #(
+        NUM_TESTS = 8 : NUM_TESTS > 0,
+        SIZE = 8 : SIZE > 0 
+    )(
+    input index[$width(NUM_TESTS)], // log2(8)
+    output a[SIZE],
+    output b[SIZE],
+    output s[SIZE]
+) {
+    // Test Cases:
+    // Both Zeroes, 1 Zero, One-Byte Addition, Overflow
+    // Max Positive + 1, Min Negative + Min Negative, Alternative Bits, All Ones
+    const A_INPUTS = {8h00, 8h01, 8h01, 8hFF, 8h7F, 8h80, 8h55, 8hFF}
+    const B_INPUTS = {8h00, 8h00, 8h01, 8h01, 8h01, 8h80, 8h55, 8hFF}
+    const SUMS     = {8h00, 8h01, 8h02, 8h00, 8h80, 8h00, 8hAA, 8hFE}
+    
+    always {
+        a = A_INPUTS[index]
+        b = B_INPUTS[index]
+        s = SUMS[index]
+    }
+}

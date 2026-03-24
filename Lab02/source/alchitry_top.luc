@@ -1,0 +1,78 @@
+module alchitry_top (
+    input clk,              // 100MHz clock
+    input rst_n,            // reset button (active low)
+    output led[8],          // 8 user controllable LEDs
+    input usb_rx,           // USB->Serial input
+    output usb_tx,          // USB->Serial output
+    output io_led[3][8],    // LEDs on IO Shield
+    output io_segment[8],   // 7-segment LEDs on IO Shield
+    output io_select[4],    // Digit select on IO Shield
+    input io_button[5],     // 5 buttons on IO Shield
+    input io_dip[3][8]      // DIP switches on IO Shield
+) {
+
+    sig rst                 // reset signal
+    full_adder fa // Instantiate full adder
+    rca rca(#SIZE(4)) // Instantiate ripple-carry adder
+    mux4to1 m
+    decoder2to4 d
+    
+    .clk(clk) {
+        // The reset conditioner is used to synchronize the reset signal to the FPGA
+        // clock. This ensures the entire FPGA comes out of reset at the same time.
+        reset_conditioner reset_cond 
+    }
+    
+    always {
+        reset_cond.in = ~rst_n  // input raw inverted reset signal
+        rst = reset_cond.out    // conditioned reset
+        
+        led = 8h00              // turn LEDs off
+        
+        usb_tx = usb_rx         // loop serial port
+        
+        io_led = 3x{{8h00}}
+        io_segment = 8hff
+        io_select = 4hf
+        
+      
+        // Full-Adder
+        fa.a = 1b0
+        fa.b = io_dip[0][1]
+        fa.cin = io_dip[0][2]
+        
+        // Show output
+        io_led[0][1:0] = c{ fa.cout, fa.s };
+        
+        // RCA
+        rca.a = io_dip[0][3:0];
+        rca.b = io_dip[1][3:0];
+        rca.cin = 1b0;
+        
+        // Output
+        io_led[1][4:0] = c{ rca.cout, rca.s };
+        
+        // MUX
+        m.data3 = io_dip[2][3]
+        m.data2 = io_dip[2][2]
+        m.data1 = io_dip[2][1]
+        m.data0 = io_dip[2][0]
+        m.s0 = io_dip[2][6]
+        m.s1 = io_dip[2][7]
+        
+        // Decoder
+        d.a1 = io_dip[2][1]
+        d.a0 = io_dip[2][0]
+        d.v = 1b1
+
+        // Whether to output MUX
+        if(io_dip[1][7]){ 
+            io_led[2][7] = m.y
+        }
+        
+        // Whether to output Decoder
+        if (io_dip[1][6]){
+            io_led[2][3:0] = c{d.y3,d.y2,d.y1,d.y0}
+        }
+    }
+}

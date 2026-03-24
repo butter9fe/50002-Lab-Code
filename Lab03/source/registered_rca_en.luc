@@ -1,0 +1,25 @@
+module registered_rca_en#(
+    SIZE = 8 : SIZE > 0
+) (
+    // RCA ports
+    input a[SIZE],  
+    input b[SIZE],  
+    output s[SIZE],
+
+    // for dff reg
+    input clk, 
+    input rst,
+    input enable // NEW!
+) {
+    
+    reg_en value_a(.d(a),.clk(clk), .rst(rst), #INIT(0), #SIZE(SIZE), .en(enable))
+    reg_en value_b(.d(b),.clk(clk), .rst(rst), #INIT(0), #SIZE(SIZE), .en(enable))
+    reg_en value_s(.clk(clk), .rst(rst), #INIT(0), #SIZE(SIZE), .en(enable))
+
+    rca rca(#SIZE(SIZE), .a(value_a.q), .b(value_b.q), .cin(0))
+    
+    always {
+        s = value_s.q
+        value_s.d = rca.s
+    }
+}

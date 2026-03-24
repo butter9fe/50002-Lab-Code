@@ -1,0 +1,28 @@
+STANDARD(LVCMOS33) {
+    pin clk CLOCK FREQUENCY(100MHz)
+    pin rst_n RESET
+
+    pin led[0] LED0
+    pin led[1] LED1
+    pin led[2] LED2
+    pin led[3] LED3
+    pin led[4] LED4
+    pin led[5] LED5
+    pin led[6] LED6
+    pin led[7] LED7
+
+    pin usb_rx USB_RX
+    pin usb_tx USB_TX
+
+    pin vga_r  B3
+    pin vga_g  B5
+    pin vga_b  B8
+    pin vga_hs B11
+    pin vga_vs B12
+
+    pin io_button[0] B28
+    pin io_button[1] B27
+    pin io_button[2] B23
+    pin io_button[3] B24
+    pin io_button[4] C49
+}

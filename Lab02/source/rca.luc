@@ -1,0 +1,37 @@
+module rca #(
+    // Define constants
+    SIZE = 32 : SIZE > 1
+)(
+    input a[SIZE],
+    input b[SIZE],
+    input cin,
+    output s[SIZE],
+    output cout
+) {
+    // Create SIZE parallel full adders
+    full_adder fa[SIZE]
+    
+    always {
+        // Initialize output values
+        s = 0;
+        cout = 0;
+        
+        // Connect all full-adder's input bits
+        fa.a = a;
+        fa.b = b;
+        fa.cin[0] = cin;
+        
+        // Connect the cin of the next full-adder to the cout of the current full-adder
+        repeat(i, SIZE-1) {
+            fa.cin[i+1] = fa.cout[i];
+        }
+        fa.cin[1] = fa.cout[0]
+        
+        
+        // Assign sum with the sums of all full-adders
+        s = fa.s;
+        
+        // cout is the cout of the final full adder
+        cout = fa.cout[SIZE-1];
+    }
+}

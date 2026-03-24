@@ -1,0 +1,605 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Mar 24 15:27:14 2026
+# Process ID         : 19544
+# Current directory  : D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1
+# Command line       : vivado.exe -log alchitry_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source alchitry_top.tcl
+# Log file           : D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1/alchitry_top.vds
+# Journal file       : D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1\vivado.jou
+# Running On         : butter9fe_ASUS
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : Intel(R) Core(TM) i7-14650HX
+# CPU Frequency      : 2419 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 24
+# Host memory        : 33943 MB
+# Swap memory        : 7724 MB
+# Total Virtual      : 41667 MB
+# Available Virtual  : 19525 MB
+#-----------------------------------------------------------
+source alchitry_top.tcl -notrace
+Command: synth_design -top alchitry_top -part xc7a35tftg256-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tftg256-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 18444
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1286.688 ; gain = 539.352
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/alchitry_top.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1/.Xil/Vivado-19544-butter9fe_ASUS/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1/.Xil/Vivado-19544-butter9fe_ASUS/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'mig_wrapper' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/mig_wrapper.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'mig_7series_0' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1/.Xil/Vivado-19544-butter9fe_ASUS/realtime/mig_7series_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'mig_7series_0' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1/.Xil/Vivado-19544-butter9fe_ASUS/realtime/mig_7series_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'mig_wrapper' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/mig_wrapper.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'ddr3_cache' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/ddr3_cache.v:24]
+INFO: [Synth 8-6155] done synthesizing module 'ddr3_cache' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/ddr3_cache.v:24]
+INFO: [Synth 8-6157] synthesizing module 'picorv32_soc' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32_soc.v:15]
+INFO: [Synth 8-6157] synthesizing module 'bram' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/bram.v:4]
+	Parameter WORDS bound to: 1024 - type: integer 
+INFO: [Synth 8-3876] $readmem data file 'D:/_Work/SUTD/CompStruct/alchitry/Doom/source/firmware.hex' is read successfully [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/bram.v:15]
+INFO: [Synth 8-6155] done synthesizing module 'bram' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/bram.v:4]
+INFO: [Synth 8-6157] synthesizing module 'simpleuart' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/simpleuart.v:20]
+	Parameter DEFAULT_DIV bound to: 88 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'simpleuart' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/simpleuart.v:20]
+INFO: [Synth 8-6157] synthesizing module 'picorv32' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:45]
+	Parameter ENABLE_COUNTERS bound to: 1'b0 
+	Parameter BARREL_SHIFTER bound to: 1'b1 
+	Parameter COMPRESSED_ISA bound to: 1'b0 
+	Parameter ENABLE_MUL bound to: 1'b1 
+	Parameter ENABLE_FAST_MUL bound to: 1'b0 
+	Parameter ENABLE_DIV bound to: 1'b1 
+	Parameter ENABLE_IRQ bound to: 1'b0 
+	Parameter ENABLE_TRACE bound to: 1'b0 
+	Parameter PROGADDR_RESET bound to: 0 - type: integer 
+	Parameter PROGADDR_IRQ bound to: 0 - type: integer 
+	Parameter STACKADDR bound to: 4096 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'picorv32_pcpi_mul' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1806]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1837]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_pcpi_mul' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1806]
+INFO: [Synth 8-6157] synthesizing module 'picorv32_pcpi_div' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:2021]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:2046]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_pcpi_div' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:2021]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:245]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1180]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1180]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1316]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1316]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1399]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1399]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1399]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1399]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1399]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1399]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:45]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_soc' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32_soc.v:15]
+INFO: [Synth 8-6157] synthesizing module 'simple_dual_port_ram' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/simple_dual_port_ram.v:47]
+	Parameter WIDTH bound to: 4'b1000 
+	Parameter ENTRIES bound to: 16'b1111101000000000 
+INFO: [Synth 8-6155] done synthesizing module 'simple_dual_port_ram' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/simple_dual_port_ram.v:47]
+INFO: [Synth 8-6157] synthesizing module 'simple_dual_port_ram__parameterized0' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/simple_dual_port_ram.v:47]
+	Parameter WIDTH bound to: 5'b11000 
+	Parameter ENTRIES bound to: 9'b100000000 
+INFO: [Synth 8-6155] done synthesizing module 'simple_dual_port_ram__parameterized0' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/simple_dual_port_ram.v:47]
+INFO: [Synth 8-6157] synthesizing module 'button_conditioner' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/button_conditioner.sv:7]
+	Parameter CLK_FREQ bound to: 27'b100110101111100011011010000 
+	Parameter MIN_DELAY bound to: 5'b10100 
+	Parameter NUM_SYNC bound to: 2'b10 
+INFO: [Synth 8-6157] synthesizing module 'pipeline' [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/pipeline.sv:7]
+	Parameter DEPTH bound to: 2'b10 
+INFO: [Synth 8-6155] done synthesizing module 'pipeline' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/pipeline.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'button_conditioner' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/button_conditioner.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/alchitry_top.sv:7]
+WARNING: [Synth 8-6014] Unused sequential element pcpi_ready_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1918]
+WARNING: [Synth 8-6014] Unused sequential element pcpi_wr_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:2067]
+WARNING: [Synth 8-6014] Unused sequential element mem_la_firstword_reg_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:306]
+WARNING: [Synth 8-6014] Unused sequential element last_mem_valid_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:307]
+WARNING: [Synth 8-6014] Unused sequential element next_insn_opcode_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:347]
+WARNING: [Synth 8-6014] Unused sequential element mem_la_secondword_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:466]
+WARNING: [Synth 8-6014] Unused sequential element prefetched_high_word_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:467]
+WARNING: [Synth 8-6014] Unused sequential element q_ascii_instr_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:666]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_imm_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:667]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_opcode_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:668]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_rs1_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:669]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_rs2_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:670]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_rd_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:671]
+WARNING: [Synth 8-6014] Unused sequential element dbg_next_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:672]
+WARNING: [Synth 8-6014] Unused sequential element dbg_valid_insn_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:675]
+WARNING: [Synth 8-6014] Unused sequential element cached_ascii_instr_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:680]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_imm_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:681]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_opcode_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:683]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_rs1_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:686]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_rs2_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:687]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_rd_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:688]
+WARNING: [Synth 8-6014] Unused sequential element dbg_insn_addr_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:692]
+WARNING: [Synth 8-6014] Unused sequential element is_sll_srl_sra_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:980]
+WARNING: [Synth 8-6014] Unused sequential element clear_prefetched_high_word_q_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1159]
+WARNING: [Synth 8-6014] Unused sequential element set_mem_do_rinst_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1225]
+WARNING: [Synth 8-6014] Unused sequential element set_mem_do_rdata_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1226]
+WARNING: [Synth 8-6014] Unused sequential element set_mem_do_wdata_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1227]
+WARNING: [Synth 8-6014] Unused sequential element alu_out_0_q_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1229]
+WARNING: [Synth 8-6014] Unused sequential element alu_wait_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1232]
+WARNING: [Synth 8-6014] Unused sequential element alu_wait_2_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1233]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs1val_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1236]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs2val_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1237]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs1val_valid_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1238]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs2val_valid_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1239]
+WARNING: [Synth 8-6014] Unused sequential element next_irq_pending_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1259]
+WARNING: [Synth 8-6014] Unused sequential element decoder_trigger_q_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1266]
+WARNING: [Synth 8-6014] Unused sequential element decoder_pseudo_trigger_q_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1268]
+WARNING: [Synth 8-6014] Unused sequential element latched_trace_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1284]
+WARNING: [Synth 8-6014] Unused sequential element irq_active_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1290]
+WARNING: [Synth 8-6014] Unused sequential element irq_delay_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1291]
+WARNING: [Synth 8-6014] Unused sequential element irq_mask_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1292]
+WARNING: [Synth 8-6014] Unused sequential element irq_state_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1294]
+WARNING: [Synth 8-6014] Unused sequential element timer_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1296]
+WARNING: [Synth 8-6014] Unused sequential element current_pc_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1314]
+WARNING: [Synth 8-6014] Unused sequential element irq_pending_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1760]
+WARNING: [Synth 8-6014] Unused sequential element count_instr_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1256]
+WARNING: [Synth 8-6014] Unused sequential element trace_valid_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1271]
+WARNING: [Synth 8-6014] Unused sequential element count_cycle_reg was removed.  [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.srcs/sources_1/imports/source/picorv32.v:1255]
+WARNING: [Synth 8-7129] Port pcpi_insn[24] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[23] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[22] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[21] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[20] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[19] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[18] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[17] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[16] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[15] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[11] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[10] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[9] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[8] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[7] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[24] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[23] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[22] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[21] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[20] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[19] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[18] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[17] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[16] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[15] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[11] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[10] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[9] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[8] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[7] in module picorv32_pcpi_mul is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_wr in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[31] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[30] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[29] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[28] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[27] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[26] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[25] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[24] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[23] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[22] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[21] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[20] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[19] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[18] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[17] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[16] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[15] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[14] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[13] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[12] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[11] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[10] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[9] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[8] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[7] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[6] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[5] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[4] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[3] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[2] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[1] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[0] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_wait in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_ready in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[31] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[30] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[29] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[28] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[27] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[26] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[25] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[24] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[23] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[22] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[21] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[20] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[19] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[18] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[17] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[16] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[15] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[14] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[13] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[12] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[11] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[10] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[9] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[8] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[7] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[6] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[5] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[4] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[3] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[2] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[1] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port irq[0] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port reg_dat_di[31] in module simpleuart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port reg_dat_di[30] in module simpleuart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port reg_dat_di[29] in module simpleuart is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1491.844 ; gain = 744.508
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1491.844 ; gain = 744.508
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1491.844 ; gain = 744.508
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.085 . Memory (MB): peak = 1491.844 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [d:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clk_wiz'
+Finished Parsing XDC File [d:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'clk_wiz'
+Parsing XDC File [d:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.gen/sources_1/ip/mig_7series_0/mig_7series_0/mig_7series_0_in_context.xdc] for cell 'mig/mig'
+Finished Parsing XDC File [d:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.gen/sources_1/ip/mig_7series_0/mig_7series_0/mig_7series_0_in_context.xdc] for cell 'mig/mig'
+Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/constraint/alchitry.xdc]
+CRITICAL WARNING: [Constraints 18-1056] Clock 'clk_0' completely overrides clock 'clk'.
+New: create_clock -period 10.000 -name clk_0 -waveform {0.000 5.000} [get_ports clk], [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/constraint/alchitry.xdc:4]
+Previous: create_clock -period 10.000 [get_ports clk], [d:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc:1]
+Resolution: Review the constraint files and remove the redundant clock definition(s). If the clock constraints are not saved in a file, you can first save the constraints to an XDC file and reload the design once the constraints have been corrected.
+Finished Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/constraint/alchitry.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/constraint/alchitry.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/alchitry_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/alchitry_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/constraint/au_props.xdc]
+Finished Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/constraint/au_props.xdc]
+Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1566.180 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.041 . Memory (MB): peak = 1566.180 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1566.180 ; gain = 818.844
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tftg256-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1566.180 ; gain = 818.844
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1566.180 ; gain = 818.844
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'mem_state_reg' in module 'picorv32'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 iSTATE2 |                               00 |                               00
+                 iSTATE0 |                               01 |                               10
+                  iSTATE |                               10 |                               01
+                 iSTATE1 |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'mem_state_reg' using encoding 'sequential' in module 'picorv32'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 1566.180 ; gain = 818.844
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   63 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 8     
+	   3 Input   32 Bit       Adders := 1     
+	   3 Input   16 Bit       Adders := 1     
+	   2 Input   11 Bit       Adders := 1     
+	   2 Input   10 Bit       Adders := 2     
+	   2 Input    7 Bit       Adders := 1     
+	   3 Input    5 Bit       Adders := 16    
+	   2 Input    5 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 3     
+	   2 Input    2 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	               64 Bit    Registers := 4     
+	               63 Bit    Registers := 1     
+	               36 Bit    Registers := 1     
+	               32 Bit    Registers := 23    
+	               26 Bit    Registers := 2     
+	               24 Bit    Registers := 2     
+	               16 Bit    Registers := 1     
+	               10 Bit    Registers := 3     
+	                8 Bit    Registers := 7     
+	                7 Bit    Registers := 1     
+	                5 Bit    Registers := 8     
+	                4 Bit    Registers := 5     
+	                2 Bit    Registers := 8     
+	                1 Bit    Registers := 357   
++---RAMs : 
+	             500K Bit	(64000 X 8 bit)          RAMs := 1     
+	              32K Bit	(256 X 128 bit)          RAMs := 1     
+	              32K Bit	(1024 X 32 bit)          RAMs := 1     
+	               6K Bit	(256 X 24 bit)          RAMs := 1     
+	               4K Bit	(256 X 16 bit)          RAMs := 1     
+	             1024 Bit	(32 X 32 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   64 Bit        Muxes := 4     
+	   2 Input   63 Bit        Muxes := 2     
+	   5 Input   32 Bit        Muxes := 3     
+	   4 Input   32 Bit        Muxes := 7     
+	   2 Input   32 Bit        Muxes := 41    
+	   6 Input   32 Bit        Muxes := 1     
+	   3 Input   32 Bit        Muxes := 3     
+	   8 Input   32 Bit        Muxes := 1     
+	   7 Input   28 Bit        Muxes := 1     
+	   7 Input   16 Bit        Muxes := 1     
+	   4 Input   16 Bit        Muxes := 1     
+	   2 Input   16 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 3     
+	   2 Input    8 Bit        Muxes := 3     
+	   4 Input    8 Bit        Muxes := 1     
+	   5 Input    8 Bit        Muxes := 1     
+	   3 Input    8 Bit        Muxes := 1     
+	   4 Input    7 Bit        Muxes := 1     
+	   3 Input    6 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 7     
+	   4 Input    4 Bit        Muxes := 2     
+	   5 Input    4 Bit        Muxes := 1     
+	   7 Input    3 Bit        Muxes := 1     
+	   8 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 3     
+	   2 Input    2 Bit        Muxes := 3     
+	   4 Input    2 Bit        Muxes := 1     
+	   5 Input    1 Bit        Muxes := 266   
+	   7 Input    1 Bit        Muxes := 4     
+	   2 Input    1 Bit        Muxes := 45    
+	   4 Input    1 Bit        Muxes := 17    
+	   3 Input    1 Bit        Muxes := 6     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:38 ; elapsed = 00:00:43 . Memory (MB): peak = 1594.355 ; gain = 847.020
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping Report (see note below)
++-------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name  | RTL Object            | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++-------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|alchitry_top | soc/bram_inst/mem_reg | 1 K x 32(READ_FIRST)   | W | R |                        |   |   | Port A           | 0      | 1      | 
+|alchitry_top | fb_ram/mem_reg        | 62 K x 8(NO_CHANGE)    | W |   | 62 K x 8(WRITE_FIRST)  |   | R | Port A and B     | 0      | 16     | 
+|alchitry_top | pal_ram/mem_reg       | 256 x 24(NO_CHANGE)    | W |   | 256 x 24(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      | 
++-------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------+-------------+-----------+----------------------+------------------+
+|Module Name | RTL Object  | Inference | Size (Depth x Width) | Primitives       | 
++------------+-------------+-----------+----------------------+------------------+
+|cache       | tags_reg    | Implied   | 256 x 16             | RAM256X1S x 16   | 
+|cache       | lines_reg   | Implied   | 256 x 128            | RAM256X1S x 128  | 
+|\soc/cpu    | cpuregs_reg | Implied   | 32 x 32              | RAM32M x 12      | 
++------------+-------------+-----------+----------------------+------------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:43 ; elapsed = 00:00:48 . Memory (MB): peak = 1684.449 ; gain = 937.113
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:44 ; elapsed = 00:00:49 . Memory (MB): peak = 1696.027 ; gain = 948.691
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++-------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name  | RTL Object            | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++-------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|alchitry_top | soc/bram_inst/mem_reg | 1 K x 32(READ_FIRST)   | W | R |                        |   |   | Port A           | 0      | 1      | 
+|alchitry_top | fb_ram/mem_reg        | 62 K x 8(NO_CHANGE)    | W |   | 62 K x 8(WRITE_FIRST)  |   | R | Port A and B     | 0      | 16     | 
+|alchitry_top | pal_ram/mem_reg       | 256 x 24(NO_CHANGE)    | W |   | 256 x 24(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      | 
++-------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+
+Distributed RAM: Final Mapping Report
++------------+-------------+-----------+----------------------+------------------+
+|Module Name | RTL Object  | Inference | Size (Depth x Width) | Primitives       | 
++------------+-------------+-----------+----------------------+------------------+
+|cache       | tags_reg    | Implied   | 256 x 16             | RAM256X1S x 16   | 
+|cache       | lines_reg   | Implied   | 256 x 128            | RAM256X1S x 128  | 
+|\soc/cpu    | cpuregs_reg | Implied   | 32 x 32              | RAM32M x 12      | 
++------------+-------------+-----------+----------------------+------------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance soc/bram_inst/mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance fb_ram/mem_reg_1_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance fb_ram/mem_reg_1_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance fb_ram/mem_reg_1_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance fb_ram/mem_reg_1_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance fb_ram/mem_reg_1_4 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance fb_ram/mem_reg_1_5 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance fb_ram/mem_reg_1_6 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance fb_ram/mem_reg_1_7 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance pal_ram/mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:45 ; elapsed = 00:00:50 . Memory (MB): peak = 1753.602 ; gain = 1006.266
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:48 ; elapsed = 00:00:54 . Memory (MB): peak = 1943.125 ; gain = 1195.789
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:48 ; elapsed = 00:00:54 . Memory (MB): peak = 1943.125 ; gain = 1195.789
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1943.125 ; gain = 1195.789
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1943.125 ; gain = 1195.789
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1945.219 ; gain = 1197.883
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1945.219 ; gain = 1197.883
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |clk_wiz_0     |         1|
+|2     |mig_7series_0 |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+------------+------+
+|      |Cell        |Count |
++------+------------+------+
+|1     |clk_wiz     |     1|
+|2     |mig_7series |     1|
+|3     |CARRY4      |   170|
+|4     |LUT1        |   149|
+|5     |LUT2        |   296|
+|6     |LUT3        |   333|
+|7     |LUT4        |   527|
+|8     |LUT5        |   360|
+|9     |LUT6        |  1415|
+|10    |MUXF7       |    32|
+|11    |RAM256X1S   |   144|
+|12    |RAM32M      |    10|
+|13    |RAM32X1D    |     4|
+|14    |RAMB18E1    |     1|
+|15    |RAMB36E1    |    17|
+|18    |FDRE        |  1642|
+|19    |FDSE        |    68|
+|20    |IBUF        |     7|
+|21    |OBUF        |    14|
++------+------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1945.219 ; gain = 1197.883
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 67 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:38 ; elapsed = 00:00:51 . Memory (MB): peak = 1945.219 ; gain = 1123.547
+Synthesis Optimization Complete : Time (s): cpu = 00:00:49 ; elapsed = 00:00:54 . Memory (MB): peak = 1945.219 ; gain = 1197.883
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.047 . Memory (MB): peak = 1954.387 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 378 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-140] Inserted 1 IBUFs to IO ports without IO buffers.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1958.066 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 158 instances were transformed.
+  RAM256X1S => RAM256X1S (MUXF7(x2), MUXF8, RAMS64E(x4)): 144 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 10 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 4 instances
+
+Synth Design complete | Checksum: 52d5fb4c
+INFO: [Common 17-83] Releasing license: Synthesis
+65 Infos, 156 Warnings, 1 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:53 ; elapsed = 00:01:00 . Memory (MB): peak = 1958.066 ; gain = 1398.801
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1958.066 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/_Work/SUTD/CompStruct/alchitry/Doom/build/vivado/DOOM 1.runs/synth_1/alchitry_top.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Mar 24 15:28:23 2026...

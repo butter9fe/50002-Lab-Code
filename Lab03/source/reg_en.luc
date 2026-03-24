@@ -1,0 +1,22 @@
+module reg_en#( 
+        SIZE = 1: SIZE > 0,
+        INIT = 0
+    ) (
+        input clk,  // clock
+        input rst,  // reset
+        input en, // enable signal, usually from button
+        input d[SIZE],
+        output q[SIZE]
+    ) {
+        dff regs[SIZE](#INIT(INIT), .clk(clk), .rst(rst))
+    
+        always {
+            regs.d = regs.q 
+        
+            // Sample only when Enable is high, but maintain old value otherwise
+            if (en){
+                regs.d = d
+            }
+            q = regs.q
+        }
+    }
