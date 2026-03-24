@@ -1,0 +1,142 @@
+testbench test_control_unit {
+    sig clk
+    
+    fun tick_clock() {
+        clk = 0
+        $tick() 
+        clk = 1
+        $tick()
+    }
+    
+    // Each entry is:
+    // { opcode[5:0],
+    //   z, rst, slowclk, ia31, irq,
+    //   exp_pcsel[2:0], exp_wasel, exp_asel, exp_ra2sel, exp_bsel,
+    //   exp_alufn[5:0], exp_wdsel[1:0], exp_werf, exp_wr }
+    
+    const CONTROL_TESTS = $reverse({
+            c{6h00, 1b0, 1b0, 1b1, 1b0, 1b0, 3b011, 1b1, 1b0, 1b0, 1b0, 6b000000, 2b00, 1b1, 1b0}, // 00 ILLOP 0x00
+            c{6h3F, 1b0, 1b0, 1b1, 1b0, 1b0, 3b011, 1b1, 1b0, 1b0, 1b0, 6b000000, 2b00, 1b1, 1b0}, // 01 ILLOP 0x3F
+            
+            c{6h20, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b000000, 2b01, 1b1, 1b0}, // 02 ADD
+            c{6h21, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b000001, 2b01, 1b1, 1b0}, // 03 SUB
+            c{6h22, 1b0, 1b0, 1b1, 1b0, 1b0, 3b011, 1b1, 1b0, 1b0, 1b0, 6b000000, 2b00, 1b1, 1b0}, // 04 MUL (ILLOP behaviour)
+            c{6h23, 1b0, 1b0, 1b1, 1b0, 1b0, 3b011, 1b1, 1b0, 1b0, 1b0, 6b000000, 2b00, 1b1, 1b0}, // 05 DIV (ILLOP behaviour)
+            
+            c{6h24, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b110011, 2b01, 1b1, 1b0}, // 06 CMPEQ
+            c{6h25, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b110101, 2b01, 1b1, 1b0}, // 07 CMPLT
+            c{6h26, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b110111, 2b01, 1b1, 1b0}, // 08 CMPLE
+            
+            c{6h28, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b011000, 2b01, 1b1, 1b0}, // 09 AND
+            c{6h29, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b011110, 2b01, 1b1, 1b0}, // 10 OR
+            c{6h2A, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b010110, 2b01, 1b1, 1b0}, // 11 XOR
+            
+            c{6h2C, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b100000, 2b01, 1b1, 1b0}, // 12 SHL
+            c{6h2D, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b100001, 2b01, 1b1, 1b0}, // 13 SHR
+            c{6h2E, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b0, 6b100011, 2b01, 1b1, 1b0}, // 14 SRA
+            
+            c{6h30, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b1, 6b000000, 2b01, 1b1, 1b0}, // 15 ADDC
+            c{6h31, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b1, 6b000001, 2b01, 1b1, 1b0}, // 16 SUBC
+            
+            c{6h34, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b1, 6b110011, 2b01, 1b1, 1b0}, // 17 CMPEQC
+            c{6h35, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b1, 6b110101, 2b01, 1b1, 1b0}, // 18 CMPLTC
+            c{6h36, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b1, 6b110111, 2b01, 1b1, 1b0}, // 19 CMPLEC
+            
+            c{6h38, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b1, 6b011000, 2b01, 1b1, 1b0}, // 20 ANDC
+            c{6h39, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b1, 6b011110, 2b01, 1b1, 1b0}, // 21 ORC
+            c{6h3A, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b1, 6b010110, 2b01, 1b1, 1b0}, // 22 XORC
+            
+            c{6h18, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b0, 1b1, 6b000000, 2b10, 1b1, 1b0}, // 23 LD
+            c{6h19, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b1, 1b1, 6b000000, 2b00, 1b0, 1b1}, // 24 ST
+            c{6h1F, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b1, 1b0, 1b0, 6b011010, 2b10, 1b1, 1b0}, // 25 LDR
+            c{6h1B, 1b0, 1b0, 1b1, 1b0, 1b0, 3b010, 1b0, 1b1, 1b0, 1b0, 6b011010, 2b00, 1b1, 1b0}, // 26 JMP
+            
+            // Branches with z variations
+            c{6h1D, 1b0, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b1, 1b0, 1b0, 6b011010, 2b00, 1b1, 1b0}, // 27 BEQ z=0 (no branch)
+            c{6h1D, 1b1, 1b0, 1b1, 1b0, 1b0, 3b001, 1b0, 1b1, 1b0, 1b0, 6b011010, 2b00, 1b1, 1b0}, // 28 BEQ z=1 (branch taken, pcsel=001)
+            
+            c{6h1E, 1b0, 1b0, 1b1, 1b0, 1b0, 3b001, 1b0, 1b1, 1b0, 1b0, 6b011010, 2b00, 1b1, 1b0}, // 29 BNE z=0 (branch taken, pcsel=001)
+            c{6h1E, 1b1, 1b0, 1b1, 1b0, 1b0, 3b000, 1b0, 1b1, 1b0, 1b0, 6b011010, 2b00, 1b1, 1b0}, // 30 BNE z=1 (no branch)
+            
+            // Reset override on wr
+            c{6h19, 1b0, 1b1, 1b1, 1b0, 1b0, 3b000, 1b0, 1b0, 1b1, 1b1, 6b000000, 2b00, 1b0, 1b0}  // 31 ST with rst=1, wr forced 0
+        })
+    
+    
+    sig t[28]
+    sig opcode[6] = t[27:22]
+    sig z  =t[21]
+    sig rst = t[20]
+    sig slowclk= t[19]
+    sig ia31= t[18]
+    sig irq= t[17]
+    control_unit control_unit(
+        .clk(clk),
+        .opcode(opcode), 
+        .z(z),
+        .irq(irq), 
+        .ia31(ia31), 
+        .slowclk(slowclk),
+        .rst(rst)) 
+    
+    test controlUnitTest {
+        clk = 0
+        // test regular values first, without interrupt
+        repeat (i, 32) {
+            t = CONTROL_TESTS[i]
+            
+            $tick_clock() // or tick_clock if you want to clock `clk` as well
+            
+            // check outputs
+            $assert(control_unit.pcsel == t[16:14])
+            $assert(control_unit.wasel == t[13])
+            $assert(control_unit.asel == t[12])
+            $assert(control_unit.ra2sel == t[11])
+            $assert(control_unit.bsel == t[10])
+            $assert(control_unit.alufn == t[9:4])
+            $assert(control_unit.wdsel == t[3:2])
+            $assert(control_unit.werf == t[1])
+            $assert(control_unit.wr == t[0])
+            
+            $print("PASS: control case %d", i)
+        }
+        
+        // test irq when ia31 = 0
+        irq = 1
+        ia31 = 0
+        slowclk = 1
+        t = CONTROL_TESTS[2]
+        $tick_clock()
+        $assert(control_unit.pcsel == 3b100)
+        $assert(control_unit.wasel == 1)
+        $assert(control_unit.werf == 1)
+        $assert(control_unit.wdsel == 2b00)
+        $assert(control_unit.wr == 0)
+        $print("PASS: IRQ with pc31 = 0 (interruptible)")
+        
+        
+        // test irq when ia31 = 1
+        irq = 1
+        ia31 = 1
+        slowclk = 1
+        t = CONTROL_TESTS[2]
+        $tick_clock()
+        $assert(control_unit.pcsel == t[16:14])
+        $assert(control_unit.wasel == t[13])
+        $assert(control_unit.asel == t[12])
+        $assert(control_unit.ra2sel == t[11])
+        $assert(control_unit.bsel == t[10])
+        $assert(control_unit.alufn == t[9:4])
+        $assert(control_unit.wdsel == t[3:2])
+        $assert(control_unit.werf == t[1])
+        $assert(control_unit.wr == t[0])
+        $print("PASS: IRQ with pc31 = 1 (not interruptible)")
+        
+        // test reset
+        rst = 1
+        $tick_clock()
+        $assert(control_unit.wr == 0)
+        $print("PASS: rst results in wr = 0")
+        
+    }
+}

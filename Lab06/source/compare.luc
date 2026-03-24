@@ -1,0 +1,23 @@
+module compare (
+    input z,
+    input v,
+    input n,
+    input alufn[6],
+    output cmp
+) {
+    mux4to1 mux
+    always {
+        // Assign selectors: ALUFN signals
+        mux.s0 = alufn[1]
+        mux.s1 = alufn[2]
+        
+        // Assign comparison inputs
+        mux.data0 = 0 // unused
+        mux.data1 = z // CMPEQ: A = B
+        mux.data2 = n ^ v // CMPLT: A < B
+        mux.data3 = (n ^ v) | z // CMPLE: A <= B
+        
+        // Output result
+        cmp = mux.y
+    }
+}

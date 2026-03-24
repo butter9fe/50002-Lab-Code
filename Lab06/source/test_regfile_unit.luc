@@ -1,0 +1,131 @@
+testbench test_regfile_unit {
+    sig clk
+    
+    fun tick_clock() {
+        clk = 0
+        $tick() // tick without capturing signals
+        clk = 1
+        $tick()
+    }
+    
+    sig rst
+    sig slowclk
+    sig ra[5]
+    sig rb[5]
+    sig rc[5]
+    sig wasel
+    sig ra2sel
+    sig werf
+    sig wdsel_out[32]
+    
+    regfile_unit regfile_unit(
+        .clk(clk), 
+        .rst(rst),
+        .slowclk(slowclk),
+        .ra(ra),
+        .rb(rb),
+        .rc(rc),
+        .wasel(wasel),
+        .ra2sel(ra2sel),
+        .werf(werf),
+        .wdsel_out(wdsel_out))
+    
+    test regfileUnitTest {
+        slowclk = 1
+        rst = 0
+        clk = 0
+        wasel = 0
+        ra2sel = 0
+        ra = 0
+        rb = 0
+        
+        // test write to R0
+        werf = 1
+        wdsel_out = 32hF
+        rc = 0
+        $tick_clock()
+        $assert(regfile_unit.rd1 == 32hF)
+        $assert(regfile_unit.rd2 == 32hF)
+        $assert(regfile_unit.mwd == 32hF)
+        $assert(regfile_unit.z == 0)
+        $print("PASS: test write to R0")
+        
+        // test write to R0
+        werf = 1
+        wdsel_out = 32hFF
+        ra = 5d15 
+        rb = 5d15
+        rc = 5d15
+        $tick_clock()
+        $assert(regfile_unit.rd1 == 32hFF)
+        $assert(regfile_unit.rd2 == 32hFF)
+        $assert(regfile_unit.mwd == 32hFF)
+        $assert(regfile_unit.z == 0)
+        $print("PASS: test write to R15")
+        
+        // test write to R31
+        rc = 5d31
+        ra = 5d31
+        rb = 5d31
+        $tick_clock()
+        $assert(regfile_unit.rd1 == 0)
+        $assert(regfile_unit.rd2 == 0)
+        $assert(regfile_unit.mwd == 0)
+        $assert(regfile_unit.z == 1)
+        $print("PASS: test write to R31")
+        
+        // test write to R0 without werf
+        werf = 0
+        wdsel_out = 32hFF
+        rc = 5d0
+        ra = 5d0
+        rb = 5d0
+        $tick_clock()
+        $assert(regfile_unit.rd1 == 32hF) // still old value
+        $assert(regfile_unit.rd2 == 32hF)
+        $assert(regfile_unit.mwd == 32hF)
+        $assert(regfile_unit.z == 0)
+        $print("PASS: test write to R0 without werf retains old value")
+        
+        // test write to XP (R30)
+        wasel = 1
+        werf = 1
+        wdsel_out = 32hBEEF
+        rc = 5d0
+        ra = 5d30
+        rb = 5d0
+        $tick_clock()
+        $assert(regfile_unit.rd1 == 32hBEEF) // write to R30 is successful
+        $assert(regfile_unit.rd2 == 32hF) // still old value
+        $assert(regfile_unit.mwd == 32hF)
+        $assert(regfile_unit.z == 0)
+        $print("PASS: test write to XP with wasel 1")
+        
+        // test rd2 from ra2sel
+        ra2sel = 1
+        werf = 0
+        rc = 5d0
+        rb = 5d30
+        ra = 5d30
+        $tick_clock()
+        $assert(regfile_unit.rd1 == 32hBEEF) // reading from XP
+        $assert(regfile_unit.rd2 == 32hF) // read from R0 instead of XP
+        $assert(regfile_unit.mwd == 32hF)
+        $assert(regfile_unit.z == 0)
+        $print("PASS: test rd2 from ra2sel")
+        
+        // test reset
+        rst = 1
+        werf = 1
+        wdsel_out = 32hBEEF
+        ra = 5d0
+        rb = 5d30
+        rc = 5d0
+        $tick_clock()
+        $assert(regfile_unit.rd1 == 0) 
+        $assert(regfile_unit.rd2 == 0)
+        $assert(regfile_unit.mwd == 0)
+        $assert(regfile_unit.z == 1)
+        $print("PASS: reset regs")
+    }
+}

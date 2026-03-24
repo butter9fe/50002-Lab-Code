@@ -1,0 +1,122 @@
+testbench test_pc_unit {
+    sig clk
+    
+    fun tick_clock() {
+        clk = 0
+        $tick()
+        clk = 1
+        $tick()
+    }
+    
+    sig id[32]
+    sig pcsel[3]
+    sig reg_data_1[32]
+    sig rst
+    
+    pc_unit pc_unit(
+        .clk(clk), 
+        .id(id), 
+        .slowclk(1), 
+        .rst(rst),
+        .pcsel(pcsel),
+        .reg_data_1(reg_data_1))
+    
+    test pcUnitTest {
+        // RESET
+        clk = 0
+        id = 0
+        rst = 1
+        pcsel = 0
+        reg_data_1 = 0        
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32h80000004)
+        $assert(pc_unit.pc_4_sxtc == 32h80000004)
+        $assert(pc_unit.ia == 32h80000000)
+        $print("PASS: RESET")
+        
+        // +4 
+        rst = 0
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32h80000008)
+        $assert(pc_unit.pc_4_sxtc == 32h80000008)
+        $assert(pc_unit.ia == 32h80000004)
+        $print("PASS: +4 case 1")
+        
+        // another +4
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32h8000000C)
+        $assert(pc_unit.pc_4_sxtc == 32h8000000C)
+        $assert(pc_unit.ia == 32h80000008)
+        $print("PASS: +4 case 2")   
+        
+        // JMP
+        pcsel = 2
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32h4)
+        $assert(pc_unit.pc_4_sxtc == 32h4)
+        $assert(pc_unit.ia == 32h0)
+        $print("PASS: JMP clear PC31") 
+        
+        // BRANCH +ve
+        pcsel = 1
+        id = 32d16
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32d72)
+        $assert(pc_unit.pc_4_sxtc == 32d136)
+        $assert(pc_unit.ia == 32d68)
+        $print("PASS: BRANCH")   
+        
+        // JMP try SET PC31
+        pcsel = 2
+        reg_data_1 = 32h80000000
+        id = 0
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32h4)
+        $assert(pc_unit.pc_4_sxtc == 32h4)
+        $assert(pc_unit.ia == 32h0)
+        $print("PASS: JMP protect PC31")       
+        
+        // JMP to address 33
+        reg_data_1 = 32d33
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32d36)
+        $assert(pc_unit.pc_4_sxtc == 32d36)
+        $assert(pc_unit.ia == 32d32)
+        $print("PASS: JMP protect 00")    
+        
+        // BRANCH -ve
+        pcsel = 1
+        id = $signed(-32d2)
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32d32)
+        $assert(pc_unit.pc_4_sxtc == 32d24)
+        $assert(pc_unit.ia == 32d28)
+        $print("PASS: BRANCH -ve")   
+        
+        // BRANCH overflow -ve
+        id = $signed(-32d9)
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32h0)
+        $assert(pc_unit.pc_4_sxtc == 32h7FFFFFDC)
+        $assert(pc_unit.ia == 32h7FFFFFFC)
+        $print("PASS: BRANCH OVERFLOW protect PC31")
+        
+        // ILLOP
+        pcsel = 3
+        id = 0
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32h80000008)
+        $assert(pc_unit.pc_4_sxtc == 32h80000008)
+        $assert(pc_unit.ia == 32h80000004)
+        $print("PASS: ILLOP")
+        
+        // XAddr
+        pcsel = 4
+        id = 0
+        $tick_clock()
+        $assert(pc_unit.pc_4 == 32h8000000C)
+        $assert(pc_unit.pc_4_sxtc == 32h8000000C)
+        $assert(pc_unit.ia == 32h80000008)
+        $print("PASS: XAddr")
+    }
+}

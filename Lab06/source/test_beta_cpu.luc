@@ -1,0 +1,108 @@
+testbench test_beta_cpu {
+    sig clk
+    
+    fun tick_clock() {
+        clk = 0
+        $tick() 
+        clk = 1
+        $tick()
+    }
+    
+    
+    sig slowclk
+    sig rst
+    sig irq
+    sig instruction[32]
+    sig mem_data_input[32]
+    
+    beta_cpu beta_cpu(.clk(clk),.rst(rst), .slowclk(slowclk), .irq(irq), .instruction(instruction),.mem_data_input(mem_data_input))
+    
+    test betaCpuTest {
+        clk = 0
+        irq = 0
+        slowclk = 1
+        
+        // test rst
+        rst = 1
+        instruction = 32hC03F0003 // ADDC(R31, 3, R1)
+        mem_data_input = 0
+        $tick_clock()
+        $assert(beta_cpu.ia == 32h80000000)
+        $assert(beta_cpu.wr == 0)
+        $print("PASS: rst")
+        
+        // regular pc+4 after rst
+        rst = 0
+        instruction = 32hC03F0003 // ADDC(R31, 3, R1)
+        $tick_clock()
+        $assert(beta_cpu.ia == 32h80000004) // pc + 4
+        $assert(beta_cpu.mem_data_address == 32h3) // output of ALU: 0 + 3 = 3
+        $print("PASS: regular pc+4 instruction (ADDC)")
+        
+        // JMP to clear the pc31 bit
+        // at this point, R1 = 3
+        instruction = 32h6FE10000 // JMP(R1)
+        $tick_clock()
+        $assert(beta_cpu.ia == 32h0) // JMP to address 3 means PC to 0 (last 2 LSB protected)
+        $print("PASS: JMP to clear pc31")
+        
+        // Type 1 instruction
+        // at this point, R1 = 3
+        instruction = 32h80010800 // ADD(R1, R1, R0)
+        $tick_clock()
+        $assert(beta_cpu.ia == 32h4) // PC + 4
+        $assert(beta_cpu.mem_data_address == 32h6) // R0 = 3 + 3 = 6
+        $print("PASS: Type 1 instruction ADD")
+        
+        // Branch
+        instruction = 32h753F0001 // BEQ(R31, to pc 12, R9)
+        $tick_clock()
+        $assert(beta_cpu.ia == 32d12) // PC goes to 12, branches
+        $print("PASS: BEQ to address")
+        
+        // Store to address 32 in Memory
+        // at this point, R9 = 8
+        instruction = 32h653F0020 // ST(R9, 32, R31)
+        $tick_clock()
+        $assert(beta_cpu.ia == 32d16) // PC + 4
+        $assert(beta_cpu.mem_data_address == 32d32) // write to Mem[32]
+        $assert(beta_cpu.mem_data_output == 32d8) // data to write: 8
+        $print("PASS: ST R9 to Mem[32]")
+        
+        // test ILLOP
+        instruction = 32h0
+        $tick_clock()
+        $assert(beta_cpu.ia == 32h80000004)
+        $print("PASS: ILLOP")
+        
+        // test IRQ (fail)
+        instruction = 32h80010800 // ADD(R1, R1, R0)
+        $tick_clock()
+        irq = 1
+        $tick_clock()
+        $assert(beta_cpu.ia == 32h8000000C)
+        $print("PASS: IRQ when pc31 not triggered")
+        
+        // test IRQ (success)
+        // at this point, R1 = 3 (from previous test case)
+        instruction = 32h6FE10000 // JMP(R1)
+        $tick_clock() // clears ia31 bit
+        irq = 1
+        $tick_clock()
+        $assert(beta_cpu.ia == 32h80000008)
+        $print("PASS: IRQ successful after clearing pc31")
+        
+        // test LD
+        instruction = 32h605F0014 // LD(R31, Mem[20], R2)
+        mem_data_input = 32d55 // assume Mem[20] = 55
+        $tick_clock()
+        instruction = 32h83FF1000 // ADD（R31，R2，R31), dummy instruction to check R2's content from ALU's output (mem_write_address)
+        $tick_clock()
+        $assert(beta_cpu.ia == 32h80000010)
+        $assert(beta_cpu.mem_data_address == 32d55)
+        $print("PASS: LD")
+        
+        
+        
+    }
+}

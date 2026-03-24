@@ -1,0 +1,61 @@
+module regfile_unit (
+    input clk,  // clock
+    input rst,  // reset
+    input ra[5],
+    input rb[5], 
+    input rc[5],
+    input wasel,
+    input ra2sel,
+    input werf,
+    input wdsel_out[32],
+    input slowclk,
+    output z,
+    output rd1[32],
+    output rd2[32],
+    output mwd[32]
+) {
+    
+    regfile_memory regfile(.clk(clk), .rst(rst))
+    sig ra2sel_out[5]
+    sig wasel_out[5]
+    
+    always {
+        // default connections to silence errors
+        mwd = 0
+        z = 0
+        ra2sel_out = 0
+        wasel_out = 0
+        
+        //*****REGFILE*******//
+        // do not write anything to the regfile unless PC advances 
+        regfile.we = 0
+        if (slowclk) {
+            regfile.we = werf
+        }
+        
+        // TASK 6
+        // RA2SEL mux
+        
+        
+        // WASEL mux 
+        
+        
+        // connections to regfile memory
+        regfile.ra2 = ra2sel_out
+        regfile.ra1 = ra
+        regfile.wa = wasel_out
+        regfile.wd = wdsel_out
+        
+        // TASK 8
+        // compute z 
+        
+        // TASK 9
+        // connect output of RD2 port of regfile_memory as mwd
+        
+        // output connections
+        rd1 = regfile.rd1 
+        rd2 = regfile.rd2
+        
+        
+    }
+}

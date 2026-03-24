@@ -1,0 +1,41 @@
+module alu (
+    input a[32],
+    input b[32],
+    input alufn[6],
+    output out[32],
+    output z,
+    output v,
+    output n
+) {
+    // Instantiate units
+    adder adder (.a(a), .b(b), .alufn0(alufn[0]), #SIZE(32))
+    compare compare(.z(adder.z), .v(adder.v), .n(adder.n), .alufn(alufn))
+    boolean boolean(.a(a), .b(b), .alufn(alufn))
+    shifter shifter(.a(a), .b(b), .alufn(alufn))
+    multiplier multiplier(.a(a), .b(b))
+    
+    // MUXes to assemble outputs
+    mux2to1 mux_arithmetic[32]
+    mux4to1 mux_final[32]
+    
+    always {
+        // Adder Unit  
+        z = adder.z
+        v = adder.v
+        n = adder.n
+        
+        // Select output based on alufn[5:4]
+        mux_arithmetic.s = 32x{alufn[1]}
+        mux_arithmetic.data0 = adder.s
+        mux_arithmetic.data1 = multiplier.mul
+        
+        mux_final.data0 = mux_arithmetic.y
+        mux_final.data1 = boolean.bool
+        mux_final.data2 = shifter.shift
+        mux_final.data3 = c{31b0, compare.cmp}
+        mux_final.s0 = 32x{alufn[4]}
+        mux_final.s1 = 32x{alufn[5]}
+        
+        out = mux_final.y
+    }
+}

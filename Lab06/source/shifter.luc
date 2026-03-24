@@ -1,0 +1,49 @@
+module shifter #(
+    SIZE = 32 : SIZE > 1
+)(
+    input a[SIZE],
+    input b[SIZE],
+    input alufn[6],
+    output shift[SIZE]
+) {
+    // Instantiate modules
+    left_shifter lsh
+    mux2to1 mux_ext[SIZE] // Selects whether we are using sign extension
+    mux2to1 mux_pad // Selects whether we are padding 0 or 1
+    mux2to1 mux_out[SIZE] // Selects whether we are shifting left or right
+    
+    // Bit Reversers for intermediary calculation
+    bit_reverse bitReverse_a // A fed in backwards for right shifts
+    bit_reverse bitReverse_out // output reversed back for right shifts
+    
+    always {
+        // Bitreverse a
+        bitReverse_a.in = a
+        
+        // Select if we are using sign extension
+        mux_ext.s = 32x{alufn[0]}
+        mux_ext.data0 = a // SHL/SHR
+        mux_ext.data1 = bitReverse_a.reversed // SRA
+        
+        // Select padding type
+        mux_pad.s = alufn[1]
+        mux_pad.data0 = 1b0 // Pad with 0s
+        mux_pad.data1 = a[SIZE-1] // Pad with 1s
+        
+        // Input to left shifter
+        lsh.a = mux_ext.y
+        lsh.b = b[4:0]
+        lsh.pad = mux_pad.y
+        
+        // Bit reverse LSH output
+        bitReverse_out.in = lsh.shl
+        
+        // Select output
+        mux_out.s = 32x{alufn[0]}
+        mux_out.data0 = lsh.shl // SHL
+        mux_out.data1 = bitReverse_out.reversed // SHR/SRA
+        
+        // Output shifting
+        shift = mux_out.y
+    } 
+}
