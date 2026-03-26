@@ -1,29 +1,33 @@
 module regfile_memory (
     input clk,  // clock
     input rst, // reset
-    input ra1[5],
-    input ra2[5],
-    output rd1[32],
-    output rd2[32],
-    input wa[5],
-    input wd[32],
-    input we
+    input ra1[5], // read address 1
+    input ra2[5], // read address 2
+    output rd1[32], // read data 1
+    output rd2[32], // read data 2
+    
+    input wa[5], // write address, which address to write to
+    input wd[32], // write data, 32-bit value to insert into register @ wa
+    input we // write enable, whether we want to write wd into Reg[wa]
 ) {
     
     dff registers[32][32](#INIT(32x{{32h0}}), .clk(clk), .rst(rst))
     
     always {
         // default connections to silence errors
-        
         registers.d = registers.q
         rd1 = 0
         rd2 = 0 
+        
         // TASK 7 
-        // implement two output read ports   
+        // Update read_data with data from read addresses
+        // UNLESS we are reading register 31, in which case just give out 0
+        rd1 = ra1 == 5b11111 ? 32h0 : registers.q[ra1]
+        rd2 = ra2 == 5b11111 ? 32h0 : registers.q[ra2]
         
         // implement one write port 
-        // check if(write_en) and that we are not writing to R31 
-        
-        // always give out 0 if we are reading R31 (from either RA ports)
+        // Write to Reg[wa] if Write Enable is 1 and we're not writing to register 31
+        if (we && wa != 5b11111)
+            registers.d[wa] = wd
     }
 }

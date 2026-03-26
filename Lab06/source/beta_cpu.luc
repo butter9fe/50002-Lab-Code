@@ -59,37 +59,83 @@ module beta_cpu (
         
         // Task 12
         //***** CONTROL unit ******// 
-        
+        control_system.irq = irq
+        control_system.ia31 = pc_system.ia[31]
+        control_system.opcode = instruction[31:26]
+        control_system.z = regfile_system.z
+        control_system.slowclk = slowclk
         
         //***** PC unit ******// 
-        
+        pc_system.id = instruction
+        pc_system.pcsel = control_system.pcsel
+        pc_system.slowclk = slowclk
+        pc_system.reg_data_1 = regfile_system.rd1
+        ia = pc_system.ia
         
         //***** REGFILE unit *****//
-        
+        regfile_system.ra = instruction[20:16]
+        regfile_system.rb = instruction[15:11]
+        regfile_system.rc = instruction[25:21]
+        regfile_system.ra2sel = control_system.ra2sel
+        regfile_system.wasel = control_system.wasel
+        regfile_system.werf = control_system.werf
+        regfile_system.slowclk = slowclk
+        // wdsel_outonnected below
         
         //****** ALU + WDSEL unit *******//
         // ASEL mux
+        case(control_system.asel) {
+            b1: // Pass PC+4+SXT(C)*4 to ALU with bit 31 forced to 0 (LDR)
+                asel_out = c{ 1b0, pc_system.pc_4_sxtc[30:0] }
+            default: // Pass Ra to ALU (OP, OPC, LD, ST, JMP)
+                asel_out = regfile_system.rd1
+        }
         
         // BSEL mux
+        case (control_system.bsel) {
+            b1: // SEXT 16-bit literal (OPC, LD, ST, BEQ, BNE, LDR)
+                bsel_out = c{ 16x{instruction[15]}, instruction[15:0] }
+            default: // Pass MWB (Rb) to ALU
+                bsel_out = regfile_system.mwd
+        }
         
-        // WDSEL mux
+        // WDSEL mux: Selects what value is written to regfile
+        case (control_system.wdsel) {
+            b00: // PC+4 (to save return address to resume to) (BEQ, BNE, JMP, IRQ)
+                wdsel_out = pc_system.pc_4
+                
+            b01: // ALU output (used for OP arithmetic/logic instructions)
+                wdsel_out = alu_system.out
+                
+            b10: // Mem[EA] (used for accessing data at address LD/LDR)
+                wdsel_out = mem_data_input
+                
+            default:
+                wdsel_out = pc_system.pc_4
+        }
         
-        // connect asel and bsel to alu, wdsel to regfile
-        
+        // Feed the selected write-back data into the register file
+        regfile_system.wdsel_out = wdsel_out
         
         // remaining beta datapath connections
         // connect alu_system with asel_out and bsel_out
+        alu_system.a = asel_out
+        alu_system.b = bsel_out
         // connect regfile_system with wdsel_out 
+        regfile_system.wdsel_out = wdsel_out
         // connect mem_data_address with the output of the alu
+        mem_data_address = alu_system.out
         // connect mem_data_output with regfile_system 
+        mem_data_output = regfile_system.mwd
         // connect wr sig with control_system 
+        wr = control_system.wr
         // connect ia with pc system
+        ia = pc_system.ia
         
         // debug signals
         debug[0][15:0] = pc_system.pcsel_out[15:0]
         debug[1][15:0] = asel_out[15:0]
         debug[2][15:0] = bsel_out[15:0]
         debug[3][15:0] = wdsel_out[15:0]
-        
     }
 }

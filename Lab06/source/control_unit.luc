@@ -1,20 +1,20 @@
 module control_unit (
-    input clk,
-    input irq, 
-    input z,
-    input rst,    
+    input clk, // clock
+    input irq, // Interrupt Request (async from external device)
+    input z, // Zero Flag
+    input rst, // reset
     input opcode[6],
     input slowclk,
-    input ia31,
-    output pcsel[3], 
-    output wasel,
-    output asel,
-    output ra2sel,
-    output bsel,
-    output alufn[6],
-    output wdsel[2], 
-    output werf,
-    output wr
+    input ia31, // Bit 31 of current PC (supervisor bit)
+    output pcsel[3], // PC Selector: Tells PC Unit which value to load next
+    output wasel, // Write Address Selector
+    output asel,  // A-Input Selector (Rb or Rc)
+    output ra2sel, // Read Address 2 Selector
+    output bsel, // B-Input Selector
+    output alufn[6], // ALU Function Selector
+    output wdsel[2], // Write Data Selector
+    output werf, // Write Enable Register File: Enables writing into destination register
+    output wr // Memory Write Enable: Enables writing mwd into data memory at address ma
   ) {
   
   const CU_ROM = { 
@@ -47,7 +47,7 @@ module control_unit (
     b00000001101010110, // OPCODE 0x25 CMPLT
     b00000001100110110, // OPCODE 0x24 CMPEQ
     b01110000000000010, // OPCODE 0x23 (ILLOP)
-    b00000000000100110, // OPCODE 0x22 MUL
+    b01110000000000010, // OPCODE 0x22 (ILLOP)
     b00000000000010110, // OPCODE 0x21 SUB
     b00000000000000110, // OPCODE 0x20 ADD
     b00001000110101010, // OPCODE 0x1F LDR
@@ -105,19 +105,34 @@ module control_unit (
     werf= CU_ROM[opcode][1];
     wr = CU_ROM[opcode][0]; 
     
-    // Task 10
-    // PCSEL for BNE/BEQ
-
+    // Task 10: PCSEL for BNE/BEQ
+    // Check of OPCODE == BEQ, and branch (PCSEL: 001) if z == 1
+    if (opcode == 6b011101 && z == 1b1)
+            pcsel = 3b001 // Jump to PC+4+4*SXT(C)
         
+    // Check of OPCODE == BNE, and branch (PCSEL: 001) if z != 1
+    if (opcode == 6b011110 && z == 1b0)
+            pcsel = 3b001 // Jump to PC+4+4*SXT(C)
         
-    // Task 11
-    // IRQ handling
+    // Task 11: IRQ handling
     // IRQ can happen only in user mode (ia31 is 0)
     // If IRQ happens during kernel mode, it will not be serviced until we return to user mode
-
+    if (irq_sampler.q & slowclk & ~ia31) {
+        // Set appropriate control signals
+        pcsel = 3b100 // jump to Interrupt Handler, redirect execution to handle interruption
+        wr = 1b0 // ensures that interrupted instruction doesn't get written into main memory
         
-    
-    // force wr = 0 when reset == 1 
+        // Allow resuming of instructions after handling interrupt,
+        // So store next instruction into R30 so we can go back later
+        wasel = 1b1 // selects XP(R30) as the register file write address
+        werf = 1b1 // enable writing to register file
+        wdsel = 2b00 // select PC+4 as data to be written into reg file
+        
+        irq_sampler.d = 0 // clear the interrupt bit so we don't retrigger this again
+    }
+        
+    // Highest Prio: Force wr = 0 when reset == 1
+    // This ensures that we only write valid data!
     if (rst){
       wr = 0;
     }

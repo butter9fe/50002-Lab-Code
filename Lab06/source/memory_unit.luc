@@ -1,3 +1,4 @@
+// RAM
 // supports byte addressable
 module memory_unit #(
   WORDS = 16 // default number of words (entries) in the memory

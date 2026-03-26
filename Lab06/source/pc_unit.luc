@@ -29,23 +29,49 @@ module pc_unit (
         pc_4raw = pc.q + 4
         pc_4sig = c{pc.q[31], pc_4raw[30:0]}            
         
-        // TASK 4
-        // shift-and-add pc by 4
-
-        
+        // TASK 4: Shift-and-add pc by 4
+        // Intermediary Signal: PC + 4 + SXT(C)
+        // SXT(C): c{16x{id[15]}, id[15:0]}, where id[15] is the MSB, extended to 32b
+        // Then 4 * SXT(C) to convert words -> bytes
+        pc_4sxtc32_sig = pc_4raw + 4 * c{ 16x{id[15]}, id[15:0] }
+        // Preserve supervisor bit
+        pc_4sxtc_sig = c{ pc.q[31], pc_4sxtc32_sig[30:0] }         
         
         // TASK 1 
         // PCSEL mux 
-
-        // outside the mux: advance the PC only when slowclk is 1 
-
+        case (pcsel){
+            // 0: Sequential - PC+4
+            3b000: pcsel_out_sig = pc_4sig
+                
+            // 1: Branch - PC+4+4*SXTC
+            3b001: pcsel_out_sig = pc_4sxtc_sig
+                
+            // 2: JMP - MUX ia31 reg_data_1[31] or 0b0, concat w/ reg_data_1
+            // This means supervising bit can only be cleared (0b0) or preserved (old PC31)
+            // So user program can never JMP into kernal mode 
+            3b010: pcsel_out_sig = c{pc.q[31] & reg_data_1[31], reg_data_1[30:0]}
+                
+            // 3: ILLOP Illegal Opcode - Constant Address
+            3b011: pcsel_out_sig = 32h80000004
+                
+            // 4: XAddr Interrupt - Constant Address
+            3b100: pcsel_out_sig = 32h80000008
+         
+          default: // just a default case to silence warnings 
+            pcsel_out_sig = pc.q;
+         }
+        
+        // Advance the PC only when slowclk is 1
+        // Force 2b00 on LSB to ensure PC stays word-aligned
+        if (slowclk){
+            pc.d = c{ pcsel_out_sig[31:2], 2b00 }
+        }
         
         // Task 2
-        // RESET mux 
+        // RESET mux: Override output when reset
+        if (rst)
+            pc.d = 32h80000000
 
-        
-        
-        
         // output connections
         ia = pc.q
         pc_4 =  pc_4sig
