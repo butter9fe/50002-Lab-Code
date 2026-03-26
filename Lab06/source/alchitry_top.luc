@@ -29,13 +29,10 @@ module alchitry_top (
         led = 8h00             // turn LEDs off
         
         usb_tx = usb_rx          // loop serial port
-        
 
         io_led = tester_manual_beta.io_led
         io_segment = tester_manual_beta.io_segment
         io_select = tester_manual_beta.io_select
         led = tester_manual_beta.led
-
-
     }
 }

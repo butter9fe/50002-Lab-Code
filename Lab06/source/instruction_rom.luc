@@ -9,7 +9,59 @@ output numinstr[10]
     // Driver code, the bottommost instruction is the first instruction
     // CHECKOFF: write your own test instruction fulfilling the requirements written in the lab handout
     const INSTRUCTIONS = {
-        32h77FFFFFF // 0x000 BEQ(R31, 0, R31) 
+        // 0x014: JMP(R31, 0, R31)  - Jump back to 0 (Target is Ra=R31=0)
+        // 0x2 IA: 0014
+        // 0x4, 0x3 ALU: -- [should be Ra & 0xFFFC though]
+        // 0x9 pcsel_out: 0000 (Target address from Ra)
+        // 0xC wdsel_out: 0018 (Saves PC+4 in R31)
+        32h6FFF0000,
+        
+        // 0x010: BEQ(R3, -5, R31)  - Branch to 0 if R3==0 (Not taken, R3=10)
+        // 0x2 IA: 0010
+        // 0x9 pcsel_out: 0014 (PC+4 since R3 != 0)
+        // 0xA asel_out: 000A (value of R3 used for comparison)
+        // 0xC wdsel_out: 0014 (Branch writes PC+4 to Rc, if BEQ was true this would've been R31 - 0)
+        // 0xE input buffer: 77E3 (Mem[0x10] reflects MSB of instruction)
+        32h77E3FFFB,
+        
+        // 0x00C: LD(R31, 12, R3)   - Load value from Mem[12] into R3
+        // 0x2 IA: 000C
+        // 0x4, 0x3 EA: 0000, 000C (12)
+        // 0x6, 0x5 MRD: 0000, 000A (10 stored in Mem[12])
+        // 0x9 pcsel_out: 0010
+        // 0xC wdsel_out: 000A (memory data to R3)
+        32h607F000C,
+        
+        // 0x008: ST(R2, 12, R31)   - Store R2 (10) into Mem[12]
+        // 0x2 IA: 0008
+        // 0x4, 0x3 EA: 0000, 000C (12)
+        // 0x8, 0x7 MWD: 0000, 000A (Value of R2)
+        // 0x9 pcsel_out: 000C
+        // 0xF Output Buffer: 000A (Mem[0xC] updated to 10)
+        32h645F000C,
+        
+        // 0x004: ADD(R1, R1, R2)   - R2 = R1 + R1 = 5 + 5 = 10
+        // 0x2 IA: 0004
+        // 0x4, 0x3 ALU: 0000, 000A
+        // 0x9 pcsel_out: 0008
+        // 0xA asel_out: 0005 (R1 value)
+        // 0xB bsel_out: 0005 (R1 value)
+        // 0xC wdsel_out: 000A (ALU Result: 10)
+        32h80410800,
+        
+        // 0x000: ADDC(R31, 5, R1)  - R1 = 0 + 5 = 5
+        // 0xD, 0x2 IA (PC): 0000, 0000
+        // 0x4, 0x3 ALU: 0000, 0005
+        // 0x6, 0x5 Mem[EA]: --
+        // 0x8, 0x7 RD2/MWD: --
+        // 0x9 pcsel_out (Next Instruct): 0004
+        // 0xA asel_out: 0000 (R31)
+        // 0xB bsel_out: 0005 (Literal)
+        // 0xC wdsel_out: 0005 (ALU Result)
+        // 0xD ia[31:16] kernel/user: 0000
+        // 0xE Mem[0x10] Beta Input Buffer: --
+        // 0xF Mem[0xC] Beta Output Buffer: --
+        32hC03F0005
     }
     
     const NUM_OF_INSTRUCTIONS = $width(INSTRUCTIONS,0) // compute how many instructions are there
