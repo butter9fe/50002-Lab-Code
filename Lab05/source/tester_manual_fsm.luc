@@ -1,0 +1,100 @@
+module tester_manual_fsm (
+    input clk,  // clock
+    input rst,  // reset
+    input next_btn, // button to go to the next state
+    input io_dip[3][8], // switches to load data
+    
+    output curr_state[3], // log2(6 states)
+    output state_segs[8], // segment representation of state
+    
+    // Values to input to ALU
+    output alu_a[32],
+    output alu_b[32],
+    output alufn[6],
+    
+    // Control Signals
+    output sample_output // are we showing outputs?
+) {
+    // State Machine Initialisation:
+    enum States {
+        LOAD_LOW_A,
+        LOAD_HIGH_A,
+        
+        LOAD_LOW_B,
+        LOAD_HIGH_B,
+        
+        LOAD_ALUFN,
+        OUTPUT
+    }
+    // First state is LOAD_LOW_A
+    dff states[$width(States)](#INIT(States.LOAD_LOW_A), .clk(clk), .rst(rst))
+    // Detect when button 'press' event
+    edge_detector rising_edge_next(.clk(clk), .in(next_btn), #RISE(1), #FALL(0))
+    
+    // Storage of inputs to ALU
+    dff reg_a[32](.clk(clk), .rst(rst), #INIT(0))
+    dff reg_b[32](.clk(clk), .rst(rst), #INIT(0))
+    dff reg_alufn[6](.clk(clk), .rst(rst), #INIT(0))
+    
+    always {
+        // Initialisation
+        states.d = states.q
+        curr_state = states.q
+        reg_a.d = reg_a.q;
+        reg_b.d = reg_b.q;
+        reg_alufn.d = reg_alufn.q;
+        
+        alu_a = 32b0
+        alu_b = 32b0
+        alufn = 6b0
+        state_segs = 7b0
+        sample_output = 0
+        
+        case(states.q) {
+            // Load last 16 bits of A
+            States.LOAD_LOW_A:
+                reg_a.d = c{16b0, io_dip[1], io_dip[0]}
+                state_segs = 8b01011111 // Display 'a'
+                if (rising_edge_next.out)
+                    states.d = States.LOAD_HIGH_A
+                
+            // Load first 16 bits of A
+            States.LOAD_HIGH_A:
+                reg_a.d = c{io_dip[1], io_dip[0], reg_a.q[15:0]}
+                state_segs = 8b01110111 // Display 'A'
+                if (rising_edge_next.out)
+                    states.d = States.LOAD_LOW_B
+                
+            // Load last 16 bits of B
+            States.LOAD_LOW_B:
+                reg_b.d = c{16b0, io_dip[1], io_dip[0]}
+                state_segs = 8b01111100 // Display 'b'
+                if (rising_edge_next.out)
+                    states.d = States.LOAD_HIGH_B
+                         
+            // Load first 16 bits of B
+            States.LOAD_HIGH_B:
+                reg_b.d = c{io_dip[1], io_dip[0], reg_b.q[15:0]}
+                state_segs = 8b01111111 // Display 'B'
+                if (rising_edge_next.out)
+                    states.d = States.LOAD_ALUFN
+                
+            // Load ALUFN signal
+            States.LOAD_ALUFN:
+                reg_alufn.d = io_dip[2][5:0] // ALUFN: Left-most bank, last 6 switches
+                state_segs = 8b10111000 // Display 'L.'
+                if (rising_edge_next.out)
+                    states.d = States.OUTPUT
+                
+            States.OUTPUT:
+                // Only update outputs here!
+                alu_a = reg_a.q
+                alu_b = reg_b.q
+                alufn = reg_alufn.q
+                sample_output = 1
+                state_segs = 8b10111111 // Display 'O.'
+                if (rising_edge_next.out) // Loop back to initial state
+                    states.d = States.LOAD_LOW_A
+        }
+    }
+}

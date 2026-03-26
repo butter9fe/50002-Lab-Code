@@ -1,0 +1,26 @@
+module boolean #(
+    SIZE = 32 : SIZE > 0
+)(
+    input a[SIZE],
+    input b[SIZE],
+    input alufn[6],
+    output bool[SIZE]
+) {
+    mux4to1 mux[32]
+    
+    always {
+        // Assign selectors
+        mux.s0 = a
+        mux.s1 = b
+        
+        // Assign boolean inputs
+        mux.data0 = 32x{alufn[0]}
+        mux.data1 = 32x{alufn[1]}
+        mux.data2 = 32x{alufn[2]}
+        mux.data3 = 32x{alufn[3]}
+        
+        // Output result
+        bool = mux.y
+    }
+    
+}

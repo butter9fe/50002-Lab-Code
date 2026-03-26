@@ -1,0 +1,67 @@
+module tester_auto_alu (
+    input clk,  // clock
+    input rst,  // reset
+    input next_button, // conditioned button to go to next state
+    input io_button[5], // buttons to hold to go through different bits
+    input io_dip[3][8],
+    output io_led[3][8],
+    output led[8],
+    output io_segment[8],
+    output io_select[4]
+) {
+    // Slow system clock (1000HZ in sim/1000Mhz in hardware) down to ~1HZ
+    // Original was 28, but it's a bit too slow!
+    counter slow_clock(#DIV($is_sim()? 9 : 26), .clk(clk), .rst(rst), #SIZE(1))
+    
+    // Create RCA tester
+    tester_auto_datapath tester_datapath(.rst(rst), .clk(clk), .alufn(io_dip[2][5:0]), #NUM_TESTS(8), #SIZE(32))
+    tester_auto_controlunit tester_controlunit(.rst(rst), .clk(clk), .slow_clock(slow_clock.value), .start_press(next_button))
+    
+    // For 7-segment LED
+    seven_segment_encoder encoder
+    
+    always {
+        led = 8h00 // turn LEDs off  
+        io_led = 3x{{8h00}}
+        io_segment = 8hff
+        io_select = 4hf
+        
+        // Set forced mask to 2nd-leftmost io_dip
+        tester_datapath.force_error_mask = io_dip[2][6]
+        
+        // Update control signals
+        tester_datapath.index_load_zero = tester_controlunit.index_load_zero
+        tester_datapath.index_inc = tester_controlunit.index_inc
+        tester_datapath.sample_enable = tester_controlunit.sample_enable
+        tester_controlunit.last_index = tester_datapath.last_index
+        tester_controlunit.equal = tester_datapath.success
+        
+        // Display output
+        io_led[2][0] = tester_datapath.n
+        io_led[2][1] = tester_datapath.v
+        io_led[2][2] = tester_datapath.z
+        io_led[2][7] = tester_controlunit.running // 1st LED displays whether we are running the simulation
+        io_led[2][6] = tester_controlunit.error // 2nd LED displays whether an error has occured
+        led[5:0] = tester_controlunit.curr_state // top 5 LEDs display the current state in binary
+        
+        // We need 4 buttons to represent all 32 bits of information in 8 LEDs
+        if (io_button[4]) { // display highest 8 bits
+            io_led[1] = tester_datapath.alu_s[31:24]
+            io_led[0] = tester_datapath.test_s[31:24]
+        } else if (io_button[1]) { // display higher 23-17 bits
+            io_led[1] = tester_datapath.alu_s[23:16]
+            io_led[0] = tester_datapath.test_s[23:16]
+        } else if (io_button[3]) { // display lower 16-8 bits
+            io_led[1] = tester_datapath.alu_s[15:8]
+            io_led[0] = tester_datapath.test_s[15:8]
+        } else { // default: display lowest 8 bits
+            io_led[1] = tester_datapath.alu_s[7:0]
+            io_led[0] = tester_datapath.test_s[7:0]
+        }
+        
+        // Display 7-segment LED
+        encoder.char = tester_datapath.curr_index
+        io_segment = ~c{1b1, encoder.segs} // Keep decimal point OFF, then display the 7 bits
+        io_select = ~4b0001 // Activate only right-most digit
+    }
+}

@@ -1,0 +1,26 @@
+module x_bit_left_shifter #(
+    // parameter declaration, to be set during module instantiation
+    // default value given is 8
+    SHIFT = 8 : SHIFT > -1 & SHIFT < 32,
+    SIZE = 32 : SIZE > 0
+  )(
+    input a[SIZE],
+    input do_shift,
+    input pad,
+    output out[SIZE]
+  ) {
+  // module declarations
+  // instantiate MUX_2 (32 of them)
+  // other useful intermediary signals, e.g: shifted_bits[32] 
+  mux2to1 shift_unit[SIZE];
+  
+  always {  
+    // assign value to shifted_bits[32] depending on the value of SHIFT
+    // connect the selector of each MUX_2 with shift 
+    shift_unit.s = SIZEx{do_shift};
+    shift_unit.data0 = a;
+    shift_unit.data1 = c{a[SIZE-1-SHIFT:0], SHIFTx{pad}} 
+
+    out = shift_unit.y;
+  }
+}

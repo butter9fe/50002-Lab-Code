@@ -1,0 +1,32 @@
+module adder #(
+    SIZE ~ 32 : SIZE > 1
+)(
+    input a[SIZE],
+    input b[SIZE],
+    input alufn0, // 0: ADD, 1: SUB
+    output s[SIZE],
+    output z, // Zero Flag
+    output v, // Overflow Flag
+    output n // Negative flag
+) {
+    sig xb[SIZE] // Intermediary signal, output of XOR gate
+    rca rca (#SIZE(SIZE)) // Ripple-Carry Adder 
+    
+    always {
+        // Computation of B's 2's Complement for SUB (when ALUFN = 1)
+        // These won't affect the calculation if it's ADD (ALUFN = 0)
+        xb = b ^ SIZEx{alufn0} // Invert B
+        rca.cin = alufn0 // Carry-in ALUFN
+        
+        // Assign inputs
+        rca.a = a
+        rca.b = xb
+        
+        // Computing outputs
+        s = rca.s // Result of adder
+        z = ~|rca.s // Zero: true if all S outputs are 0 
+        // Overflow: true if sign of result differs from sign of operands
+        v = (a[SIZE-1] & xb[SIZE-1] & !rca.s[SIZE-1]) | (!a[SIZE-1] & !xb[SIZE-1] & rca.s[SIZE-1])        
+        n = rca.s[SIZE-1] // Negative: true if MSB is 1      
+    }
+}

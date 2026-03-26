@@ -1,0 +1,32 @@
+testbench test_boolean {
+    boolean boolean
+    const TEST_CASES_BOOLEAN = $reverse({
+            // 1. AND: basic mask
+            c{32hFF00FF00,    32h0F0F0F0F,    4b1000, 32h0F000F00},
+            // 2. AND: no common bits
+            c{32hAAAAAAAA,    32h55555555,    4b1000, 32h00000000},
+            // 3. OR: combine disjoint bits
+            c{32hFF00FF00,    32h00FF00FF,    4b1110, 32hFFFFFFFF},
+            // 4. OR: one side zero
+            c{32h12345678,    32h00000000,    4b1110, 32h12345678},
+            // 5. XOR: identical inputs cancel
+            c{32hDEADBEEF,    32hDEADBEEF,    4b0110, 32h00000000},
+            // 6. XOR: alternating bits
+            c{32hAAAAAAAA,    32h55555555,    4b0110, 32hFFFFFFFF},
+            // 7. A: pass-through ignores B
+            c{32h12345678,    32hFFFFFFFF,    4b1010, 32h12345678},
+            // 8. A: zero remains zero
+            c{32h00000000,    32hDEADBEEF,    4b1010, 32h00000000}
+        })
+    
+    test booleanTest {
+        repeat (i, 8){
+            boolean.a  = TEST_CASES_BOOLEAN[i][99:68]
+            boolean.b  = TEST_CASES_BOOLEAN[i][67:36]
+            boolean.alufn = c{2b01,TEST_CASES_BOOLEAN[i][35:32]}
+            $tick()
+            $assert(boolean.bool == TEST_CASES_BOOLEAN[i][31:0])
+            $print("PASS test case: %d", i+1)
+        }
+    }
+}

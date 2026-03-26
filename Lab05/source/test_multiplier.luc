@@ -1,0 +1,32 @@
+testbench test_multiplier {
+    multiplier multiplier
+    const TEST_CASES_MUL = $reverse({
+            // 1. small positive multiply
+            c{32d3,           32d4,           32d12},
+            // 2. multiply by zero
+            c{32d12345,       32d0,           32d0},
+            // 3. negative times positive
+            c{-32d7,          32d6,          -32d42},
+            // 4. negative times negative
+            c{-32d8,         -32d5,           32d40},
+            // 5. large values with truncation (lower 32 bits kept)
+            c{32hFFFFFFFF,    32d2,           32hFFFFFFFE},
+            // 6. sign bit interaction
+            c{32h80000000,    32d2,           32h00000000},
+            // 7. power-of-two scaling
+            c{32d1024,        32d1024,        32d1048576},
+            // 8. overflow wraps around
+            c{32h7FFFFFFF,    32d2,           32hFFFFFFFE}
+        })
+    
+    test myTest {
+        repeat (i, 8){
+            multiplier.a  = TEST_CASES_MUL[i][95:64]
+            multiplier.b  = TEST_CASES_MUL[i][63:32]
+            $tick()
+            $print("Input: %d, %d | Result: %b", TEST_CASES_MUL[i][95:64], TEST_CASES_MUL[i][63:32], multiplier.mul)
+            $assert(multiplier.mul == TEST_CASES_MUL[i][31:0])
+            $print("PASS test case: %d", i+1)
+        }
+    }
+}

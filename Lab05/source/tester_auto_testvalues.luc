@@ -1,0 +1,228 @@
+module tester_auto_testvalues (
+    input index[3],
+    input alufn[6],
+    output a[32],
+    output b[32], 
+    output s[32]
+) {
+    
+    const TEST_VALUES_ADD = {
+        
+        96h00000001_00000002_00000003, // 1 + 2 = 3 
+        96hFFFFFFFF_00000001_00000000, // -1 + 1 = 0 
+        96h7FFFFFFF_00000001_80000000, // Max Positive + 1 = Min Negative 
+        96hFFFFFFFF_FFFFFFFF_FFFFFFFE, // -1 + -1 = -2 
+        96h80000000_80000000_00000000, // Min Negative + Min Negative = 0
+        96hAA55AA55_55AA55AA_FFFFFFFF, // Bit Pattern Mix
+        96h00000000_FFFFFFFF_FFFFFFFF, // 0 + Max Unsigned = Max Unsigned
+        96hFFFFFFFB_0000000A_00000005  // -5 + 10 = 5 
+    }  
+    
+    const TEST_VALUES_SUB = {
+        
+        96h00000000_00000000_00000000, // 0 - 0 = 0
+        96hFFFFFFFF_00000001_FFFFFFFE, // -1 - 1 = -2
+        96h80000000_80000000_00000000, // Min Neg - Min Neg = 0
+        96h7FFFFFFF_80000000_FFFFFFFF, // Max Pos - Min Neg = -1 
+        96h80000000_00000001_7FFFFFFF, // Min Neg - 1 = Max Pos 
+        96h00000000_00000001_FFFFFFFF, // 0 - 1 = -1 
+        96h00000005_0000000A_FFFFFFFB, // 5 - 10 = -5 
+        96h0000000A_00000005_00000005  // 10 - 5 = 5
+    }
+    
+    const TEST_VALUES_MUL = {
+        
+        96h000000FF_00000001_000000FF, // 255 * 1 = 255
+        96h000000FF_00000000_00000000, // 255 * 0 = 0
+        96h00000002_00000040_00000080, // 2 * 64 = 128
+        96h40000000_00000004_00000000, // 1,073,741,824 * 4 = 0 
+        96h00000032_00000002_00000064, // 50 * 2 = 100
+        96h00010000_00010000_00000000, // 65536 * 65536 = 0 
+        96h0000000A_0000000A_00000064, // 10 * 10 = 100
+        96h00000003_00000004_0000000C  // 3 * 4 = 12
+    }
+    
+    const TEST_VALUES_AND = {
+
+        96h00000000_FFFFFFFF_00000000, // All 0s & All 1s = All 0s
+        96hFFFFFFFF_00000000_00000000, // All 1s & All 0s = All 0s
+        96hFFFFFFFF_FFFFFFFF_FFFFFFFF, // All 1s & All 1s = All 1s
+        96h00000000_00000000_00000000, // All 0s & All 0s = All 0s
+        96h55555555_55555555_55555555, // 0101... & 0101... = 0101...
+        96hAAAAAAAA_AAAAAAAA_AAAAAAAA, // 1010... & 1010... = 1010...
+        96hF0F0F0F0_0F0F0F0F_00000000, // Opposite nibbles = All 0s
+        96h0F0F0F0F_0F0F0F0F_0F0F0F0F  // Same nibbles = Identical result
+    }
+
+    const TEST_VALUES_OR = {
+        
+        96hFFFFFFFF_FFFFFFFF_FFFFFFFF, // All 1s | All 1s = All 1s
+        96hAAAAAAAA_00000000_AAAAAAAA, // AA... | 00... = AA...
+        96h00000000_55555555_55555555, // 00... | 55... = 55...
+        96hCCCCCCCC_CCCCCCCC_CCCCCCCC, // CC... | CC... = CC...
+        96h0F0F0F0F_0F0F0F0F_0F0F0F0F, // 0F... | 0F... = 0F...
+        96h00000000_FFFFFFFF_FFFFFFFF, // 00... | FF... = FF...
+        96h55555555_AAAAAAAA_FFFFFFFF, // 0101... | 1010... = All 1s
+        96hF0F0F0F0_0F0F0F0F_FFFFFFFF  // F0... | 0F... = All 1s     
+    }
+
+    const TEST_VALUES_XOR = {
+        
+        96hFFFFFFFF_00000000_FFFFFFFF, // FF... ^ 00... = FF...
+        96h00000000_FFFFFFFF_FFFFFFFF, // 00... ^ FF... = FF...
+        96h55555555_AAAAAAAA_FFFFFFFF, // 55... ^ AA... = All 1s (Opposite bits)
+        96h00000000_00000000_00000000, // 00... ^ 00... = 00...
+        96h12345678_12345678_00000000, // Identical values ^ = 0 (Identity test)
+        96h0F0F0F0F_0F0F0F0F_00000000, // Identical nibbles ^ = 0
+        96hAAAAAAAA_55555555_FFFFFFFF, // AA... ^ 55... = All 1s
+        96hFFFFFFFF_FFFFFFFF_00000000  // FF... ^ FF... = 00...
+    }
+
+    const TEST_VALUES_LDRA = {
+        
+        96hAAAAAAAA_55555555_AAAAAAAA, // Pass AA...
+        96h55555555_AAAAAAAA_55555555, // Pass 55...
+        96h00000000_FFFFFFFF_00000000, // Pass 00...
+        96hFFFFFFFF_00000000_FFFFFFFF, // Pass FF...
+        96h81818181_18181818_81818181, // Pass 81...
+        96h3C3C3C3C_3C3C3C3C_3C3C3C3C, // Pass 3C...
+        96hFFFFFFFF_00000000_FFFFFFFF, // Pass FF...
+        96h12345678_87654321_12345678  // Pass 12345678 
+    }
+
+    const TEST_VALUES_SHL = {
+        
+        96h80000000_00000001_00000000, // Negative Min << 1 = 0 (Sign bit lost)
+        96hFFFFFFFF_0000000F_FFFF8000, // -1 << 15 = FFFF8000
+        96hF0000000_00000004_00000000, // Negative val << 4 = 0 (Overflow)
+        96h80000001_00000001_00000002,
+        96hAAAAAAAA_00000002_AAAAAAA8, // AA... << 2 = AAAAAAA8 
+        96hFFFFFFFF_00000000_FFFFFFFF, // FF... << 0 = FF...
+        96h00000012_00000003_00000090, // 12 << 3 = 90
+        96h00000001_00000000_00000001  // 1 << 0 = 1
+    }  
+    
+    const TEST_VALUES_SHR = {
+        
+        96hFFFFFFFF_0000001F_00000001, // -1 >> 31 = 1 (Only LSB remains)
+        96hF0000000_00000004_0F000000, // Negative >> 4 = 0F... (MSB becomes 0)
+        96hF0000000_00000001_78000000, // F0... >> 1 = 78...
+        96h0F000000_00000001_07800000, // 0F... >> 1 = 07...
+        96hAAAAAAAA_00000001_55555555, // AA... >> 1 = 55... (Checkerboard flip)
+        96h55555555_00000001_2AAAAAAA, // 55... >> 1 = 2A...
+        96h80000000_00000001_40000000, // 80... >> 1 = 40...
+        96h80000000_0000001F_00000001  // 80... >> 31 = 01 (Pushed all the way to LSB)
+    }
+    
+    const TEST_VALUES_SRA = {
+
+        96h0000007F_00000001_0000003F, // 127 >>> 1 = 63
+        96h00000040_00000002_00000010, // 64 >>> 2 = 16
+        96h00000055_00000001_0000002A, // 85 >>> 1 = 42
+        96h00000010_00000004_00000001, // 16 >>> 4 = 1
+        96h80000000_00000001_C0000000, // -2^31 >>> 1 = -2^30 (C = 1100...)
+        96hFFFFFFFF_0000000F_FFFFFFFF, // -1 >>> 15 = -1 (Remains -1)
+        96h80000000_0000001F_FFFFFFFF, // -2^31 >>> 31 = -1 (Smeared sign)
+        96hF0000000_00000004_FF000000  // F0... >>> 4 = FF... (Sign bit F propagated)
+    }
+
+    const TEST_VALUES_CMPEQ = {
+        
+        96hFFFFFFFF_FFFFFFFF_00000001, // -1 == -1 is True
+        96h00000001_00000002_00000000, // 1 == 2 is False
+        96h80000000_80000000_00000001, // Min Int == Min Int is True
+        96h80000000_7FFFFFFF_00000000, // Min Int == Max Int is False
+        96hAAAAAAAA_55555555_00000000, // AA... == 55... is False
+        96hAAAAAAAA_AAAAAAAA_00000001, // AA... == AA... is True
+        96h00000005_00000006_00000000, // 5 == 6 is False
+        96h00000005_00000005_00000001  // 5 == 5 is True
+    }
+    
+    const TEST_VALUES_CMPLT = {
+
+        96h80000000_80000001_00000001, // -2,147,483,648 < -2,147,483,647 -> True
+        96h80000001_80000000_00000000, // -2,147,483,647 < -2,147,483,648 -> False
+        96hFFFFFFFE_FFFFFFFF_00000001, // -2 < -1 -> True
+        96hFFFFFFFF_FFFFFFFE_00000000, // -1 < -2 -> False
+        96hFFFFFFFF_00000001_00000001, // -1 < 1 -> True
+        96h00000001_FFFFFFFF_00000000, // 1 < -1 -> False
+        96h0000007E_0000007F_00000001, // 126 < 127 -> True
+        96h7FFFFFFF_7FFFFFFE_00000000  // Max Pos < (Max Pos - 1) -> False
+    }
+    
+    const TEST_VALUES_CMPLE = {
+        
+        96h00000005_00000002_00000000, // 5 <= 2 is False
+        96h00000002_00000005_00000001, // 2 <= 5 is True
+        96h7FFFFFFF_7FFFFFFF_00000001, // Max Pos <= Max Pos is True
+        96h00000000_00000001_00000001, // 0 <= 1 is True
+        96h80000000_80000001_00000001, // -2^31 <= -2^31 + 1 is True
+        96h80000001_80000000_00000000, // -2^31 + 1 <= -2^31 is False
+        96hFFFFFFFE_FFFFFFFF_00000001, // -2 <= -1 is True
+        96h80000000_80000000_00000001  // Min Neg <= Min Neg is True
+    }
+
+    always {
+        a = 8h00
+        b = 8h00
+        s = 8h00
+        
+        case(alufn) {
+            6b00000:
+                    a = TEST_VALUES_ADD[index][95:64]
+                    b = TEST_VALUES_ADD[index][63:32]
+                    s = TEST_VALUES_ADD[index][31:0]
+            6b000001:
+                    a = TEST_VALUES_SUB[index][95:64]
+                    b = TEST_VALUES_SUB[index][63:32]
+                    s = TEST_VALUES_SUB[index][31:0]
+            6b000010:
+                    a = TEST_VALUES_MUL[index][95:64]
+                    b = TEST_VALUES_MUL[index][63:32]
+                    s = TEST_VALUES_MUL[index][31:0]
+                
+            6b011000:
+                    a = TEST_VALUES_AND[index][95:64]
+                    b = TEST_VALUES_AND[index][63:32]
+                    s = TEST_VALUES_AND[index][31:0]
+            6b011110:
+                    a = TEST_VALUES_OR[index][95:64]
+                    b = TEST_VALUES_OR[index][63:32]
+                    s = TEST_VALUES_OR[index][31:0]
+            6b010110:
+                    a = TEST_VALUES_XOR[index][95:64]
+                    b = TEST_VALUES_XOR[index][63:32]
+                    s = TEST_VALUES_XOR[index][31:0]
+            6b011010:
+                    a = TEST_VALUES_LDRA[index][95:64]
+                    b = TEST_VALUES_LDRA[index][63:32]
+                    s = TEST_VALUES_LDRA[index][31:0]
+                
+            6b100000:
+                    a = TEST_VALUES_SHL[index][95:64]
+                    b = TEST_VALUES_SHL[index][63:32]
+                    s = TEST_VALUES_SHL[index][31:0]
+            6b100001:
+                    a = TEST_VALUES_SHR[index][95:64]
+                    b = TEST_VALUES_SHR[index][63:32]
+                    s = TEST_VALUES_SHR[index][31:0]
+            6b100011:
+                    a = TEST_VALUES_SRA[index][95:64]
+                    b = TEST_VALUES_SRA[index][63:32]
+                    s = TEST_VALUES_SRA[index][31:0]
+            6b110011:
+                    a = TEST_VALUES_CMPEQ[index][95:64]
+                    b = TEST_VALUES_CMPEQ[index][63:32]
+                    s = TEST_VALUES_CMPEQ[index][31:0]
+            6b110101:
+                    a = TEST_VALUES_CMPLT[index][95:64]
+                    b = TEST_VALUES_CMPLT[index][63:32]
+                    s = TEST_VALUES_CMPLT[index][31:0]
+            6b110111:
+                    a = TEST_VALUES_CMPLE[index][95:64]
+                    b = TEST_VALUES_CMPLE[index][63:32]
+                    s = TEST_VALUES_CMPLE[index][31:0]
+
+        }
+    }
+}

@@ -1,0 +1,37 @@
+module multiplier (
+    input a[32],
+    input b[32],
+    output mul[32]
+) {
+    // Pass exactly 31 integers for the 31 partial_product instances
+    partial_product pp[31](#SHIFT({6d31, 6d30, 6d29, 6d28, 6d27, 6d26, 6d25, 6d24, 6d23, 6d22, 6d21, 6d20, 6d19, 6d18, 6d17, 6d16, 6d15, 6d14, 6d13, 6d12, 6d11, 6d10, 6d9, 6d8, 6d7, 6d6, 6d5, 6d4, 6d3, 6d2, 6d1}))
+    rca adder[31]
+    
+    // Doing SHIFT 0 causes a duplication error even if we handle it by branching, 
+    // so we manually calculate the first partial product here
+    sig pp0[32]
+    
+    always {
+        // 1) Calculate partial products
+        pp0 = b[0] ? a : 32x{1b0}
+        repeat(i, 31) {
+            pp.a[i] = a
+            pp.b_bit[i] = b[i+1] 
+        }
+        
+        // 2) Sum partial products
+        // Start the chain
+        adder.cin[0] = 0
+        adder.a[0] = pp0
+        adder.b[0] = pp.pp[0] // SHIFT=1 row
+        
+        repeat (i, 30) {
+            adder.cin[i+1] = 0
+            adder.a[i+1] = adder.s[i]
+            adder.b[i+1] = pp.pp[i+1] 
+        }
+        
+        // Final result is the last RCA
+        mul = adder.s[30]
+    }
+}

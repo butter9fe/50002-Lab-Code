@@ -1,0 +1,53 @@
+module tester_manual_alu#(
+    CLK_FREQ ~ 1000 : CLK_FREQ > 0) 
+(
+    input clk,  // clock
+    input rst,  // reset
+    input next_button, // conditioned button to go to next state
+    input high_button, // button to hold down to show HIGH bits
+    input io_dip[3][8],
+    output io_led[3][8],
+    output io_segment[8],
+    output io_select[4]
+) {
+    
+    alu alu
+    tester_manual_fsm tester_fsm(.clk(clk), .rst(rst), .next_btn(next_button), .io_dip(io_dip))
+    
+    always {
+        // CLEAR OUTPUTS
+        io_led = 3x{{8h0}}
+        io_segment = 0
+        io_select = 4hF
+        
+        // MAPPING INPUTS
+        alu.a = tester_fsm.alu_a
+        alu.b = tester_fsm.alu_b
+        alu.alufn = tester_fsm.alufn
+        
+        // MAPPING OUTPUTS
+        // Display FSM state on last digit of 7-segment & LEDs
+        io_segment = ~tester_fsm.state_segs // Custom segments based on states
+        io_select = ~4b0001 // Activate only right-most digit
+        io_led[2][7:5] = tester_fsm.curr_state // First 3 LEDs on left-most bank
+        
+        // Display outputs
+        if (tester_fsm.sample_output) {
+            // Left-most bank io_led[2]
+            // Last 3 LEDs represent ZVN
+            io_led[2][0] = alu.n
+            io_led[2][1] = alu.v
+            io_led[2][2] = alu.z
+            
+            // Middle and Right bank io_led[1:0]
+            if (high_button) { // Button held down: Upper 16-bit of output
+                io_led[1] = alu.out[31:24]
+                io_led[0] = alu.out[23:16]
+            }
+            else { // Button released: Lower 16-bit of output
+                io_led[1] = alu.out[15:8]
+                io_led[0] = alu.out[7:0]
+            }
+        }
+    }
+}

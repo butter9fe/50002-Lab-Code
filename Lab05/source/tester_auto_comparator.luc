@@ -1,0 +1,14 @@
+// Separate module to do a simple comparison
+// This is such that we can easily change the comparison logic if needed in the future
+module tester_auto_comparator #(
+        SIZE = 8 : SIZE > 0 
+    )(
+    input x[SIZE],
+    input y[SIZE],
+    output success // whether comparator has succeeded
+) {
+    always {
+        // Checks whether x is equivalent to y
+        success = x == y
+    }
+}

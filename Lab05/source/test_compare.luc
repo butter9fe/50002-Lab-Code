@@ -1,0 +1,33 @@
+testbench test_compare {
+    compare compare
+    const TEST_CASES_COMPARE = $reverse({
+            // 1. CMPEQ true (z = 1)
+            c{1b1, 1b0, 1b0, 2b01, 1b1},
+            // 2. CMPEQ false (z = 0, v/n ignored)
+            c{1b0, 1b1, 1b1, 2b01, 1b0},
+            // 3. CMPLT true (n ^ v = 1, normal negative)
+            c{1b0, 1b0, 1b1, 2b10, 1b1},
+            // 4. CMPLT true (n ^ v = 1, overflow sign flip)
+            c{1b0, 1b1, 1b0, 2b10, 1b1},
+            // 5. CMPLT false (n ^ v = 0)
+            c{1b0, 1b0, 1b0, 2b10, 1b0},
+            // 6. CMPLE true via equality (z = 1)
+            c{1b1, 1b0, 1b0, 2b11, 1b1},
+            // 7. CMPLE true via less-than (n ^ v = 1)
+            c{1b0, 1b0, 1b1, 2b11, 1b1},
+            // 8. CMPLE false (greater-than)
+            c{1b0, 1b0, 1b0, 2b11, 1b0}
+        })
+    
+    test compareTest {
+        repeat (i, 8){
+            compare.z = TEST_CASES_COMPARE[i][5]
+            compare.v = TEST_CASES_COMPARE[i][4]
+            compare.n = TEST_CASES_COMPARE[i][3]
+            compare.alufn = c{3b110,TEST_CASES_COMPARE[i][2:1], 1b1}
+            $tick()
+            $assert(compare.cmp == TEST_CASES_COMPARE[i][0])
+            $print("PASS test case: %d", i+1)
+        }
+    }
+}

@@ -1,0 +1,89 @@
+module tester_auto_controlunit (
+    input rst,  // reset
+    input clk,  // clock
+    input slow_clock, // so it's visible to human eye!
+    input start_press, // button to start FSM out of HALT state
+    
+    input equal, // result of whether the comparison test passed
+    input last_index, // previous index, lets FSM decide whether end of list should wrap/stop
+    
+    output curr_state[3], // log2(8 states)
+    
+    // Control signals
+    output index_load_zero, // should we reset index to 0?
+    output index_inc, // should we increment index?
+    output sample_enable, // should we sample new inputs in this cycle?
+    output running, // is the tester running?
+    output error // has an error occured?
+) {
+    
+    // State Machine Initialisation:
+    enum States {
+        IDLE,
+        INIT,
+        FEED,
+        WAIT,
+        CHECK,
+        INC,
+        HALT
+    }
+    // First state is IDLE
+    dff states[$width(States)](#INIT(States.IDLE), .clk(clk), .rst(rst))
+    // Detect when slow clock ticks (is outputting a '1')
+    edge_detector rising_edge(.clk(clk), .in(slow_clock), #RISE(1), #FALL(0))
+    // Detect when button 'press' event
+    edge_detector rising_edge_start(.clk(clk), .in(start_press), #RISE(1), #FALL(0))
+    
+    always {
+        // Initialisation
+        states.d = states.q
+        curr_state = states.q
+        index_load_zero = 0
+        index_inc = 0
+        sample_enable = 0
+        running = 0
+        error = 0
+        
+        case(states.q){
+            // Begin test after pressing button
+            States.IDLE:
+                if (rising_edge_start.out)
+                    states.d = States.INIT
+                
+            // Reset datapath's index to 0
+            States.INIT:
+                index_load_zero = 1
+                states.d = States.WAIT
+                
+            // Enable ALU to receive input for 1 clock cycle
+            States.WAIT:
+                sample_enable = 1
+                running = 1
+                states.d = States.CHECK
+            
+            // Check if test passed and moves to relevant state after a slow clock tick
+            States.CHECK:
+                running = 1
+                if (rising_edge.out) {
+                    if (~equal) // Stop adder
+                        states.d = States.HALT
+                    else if (last_index)
+                        states.d = States.IDLE
+                    else
+                        states.d = States.INC
+                }
+                
+            // Increments index in datapath to go to next testcase
+            States.INC:
+                index_inc = 1
+                running = 1
+                states.d = States.WAIT
+                
+            // Completely stop execution on error, and only continue on button press
+            States.HALT:
+                error = 1
+                if (rising_edge_start.out)
+                    states.d = States.INIT
+        }
+    }
+}

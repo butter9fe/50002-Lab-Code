@@ -1,0 +1,396 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Tue Mar 24 22:15:46 2026
+| Host         : butter9fe_ASUS running 64-bit major release  (build 9200)
+| Command      : report_methodology -file alchitry_top_methodology_drc_routed.rpt -pb alchitry_top_methodology_drc_routed.pb -rpx alchitry_top_methodology_drc_routed.rpx
+| Design       : alchitry_top
+| Device       : xc7a35tftg256-1
+| Speed File   : -1
+| Design State : Fully Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max checks: <unlimited>
+             Checks found: 72
++-----------+----------+-------------------------------+--------+
+| Rule      | Severity | Description                   | Checks |
++-----------+----------+-------------------------------+--------+
+| TIMING-16 | Warning  | Large setup violation         | 2      |
+| TIMING-18 | Warning  | Missing input or output delay | 70     |
++-----------+----------+-------------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+TIMING-16#1 Warning
+Large setup violation  
+There is a large setup violation of -25.003 ns between alu_auto/tester_datapath/D_index_q_reg[1]_replica_6/C (clocked by clk_0) and alu_auto/tester_controlunit/FSM_sequential_D_states_q_reg[2]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-16#2 Warning
+Large setup violation  
+There is a large setup violation of -25.066 ns between alu_auto/tester_datapath/D_index_q_reg[1]_replica_6/C (clocked by clk_0) and alu_auto/tester_controlunit/FSM_sequential_D_states_q_reg[0]/D (clocked by clk_0). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
+Related violations: <none>
+
+TIMING-18#1 Warning
+Missing input or output delay  
+An input delay is missing on io_button[0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An input delay is missing on io_button[1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#3 Warning
+Missing input or output delay  
+An input delay is missing on io_button[2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#4 Warning
+Missing input or output delay  
+An input delay is missing on io_button[3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#5 Warning
+Missing input or output delay  
+An input delay is missing on io_button[4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#6 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[0][0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#7 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[0][1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#8 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[0][2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#9 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[0][3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#10 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[0][4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#11 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[0][5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#12 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[0][6] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#13 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[0][7] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#14 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[1][0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#15 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[1][1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#16 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[1][2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#17 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[1][3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#18 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[1][4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#19 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[1][5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#20 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[1][6] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#21 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[1][7] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#22 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[2][0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#23 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[2][1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#24 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[2][2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#25 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[2][3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#26 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[2][4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#27 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[2][5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#28 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[2][6] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#29 Warning
+Missing input or output delay  
+An input delay is missing on io_dip[2][7] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#30 Warning
+Missing input or output delay  
+An input delay is missing on rst_n relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#31 Warning
+Missing input or output delay  
+An output delay is missing on io_led[0][0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#32 Warning
+Missing input or output delay  
+An output delay is missing on io_led[0][1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#33 Warning
+Missing input or output delay  
+An output delay is missing on io_led[0][2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#34 Warning
+Missing input or output delay  
+An output delay is missing on io_led[0][3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#35 Warning
+Missing input or output delay  
+An output delay is missing on io_led[0][4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#36 Warning
+Missing input or output delay  
+An output delay is missing on io_led[0][5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#37 Warning
+Missing input or output delay  
+An output delay is missing on io_led[0][6] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#38 Warning
+Missing input or output delay  
+An output delay is missing on io_led[0][7] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#39 Warning
+Missing input or output delay  
+An output delay is missing on io_led[1][0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#40 Warning
+Missing input or output delay  
+An output delay is missing on io_led[1][1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#41 Warning
+Missing input or output delay  
+An output delay is missing on io_led[1][2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#42 Warning
+Missing input or output delay  
+An output delay is missing on io_led[1][3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#43 Warning
+Missing input or output delay  
+An output delay is missing on io_led[1][4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#44 Warning
+Missing input or output delay  
+An output delay is missing on io_led[1][5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#45 Warning
+Missing input or output delay  
+An output delay is missing on io_led[1][6] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#46 Warning
+Missing input or output delay  
+An output delay is missing on io_led[1][7] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#47 Warning
+Missing input or output delay  
+An output delay is missing on io_led[2][0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#48 Warning
+Missing input or output delay  
+An output delay is missing on io_led[2][1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#49 Warning
+Missing input or output delay  
+An output delay is missing on io_led[2][2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#50 Warning
+Missing input or output delay  
+An output delay is missing on io_led[2][3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#51 Warning
+Missing input or output delay  
+An output delay is missing on io_led[2][4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#52 Warning
+Missing input or output delay  
+An output delay is missing on io_led[2][5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#53 Warning
+Missing input or output delay  
+An output delay is missing on io_led[2][6] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#54 Warning
+Missing input or output delay  
+An output delay is missing on io_led[2][7] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#55 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#56 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#57 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#58 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#59 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#60 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#61 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[6] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#62 Warning
+Missing input or output delay  
+An output delay is missing on io_segment[7] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#63 Warning
+Missing input or output delay  
+An output delay is missing on led[0] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#64 Warning
+Missing input or output delay  
+An output delay is missing on led[1] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#65 Warning
+Missing input or output delay  
+An output delay is missing on led[2] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#66 Warning
+Missing input or output delay  
+An output delay is missing on led[3] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#67 Warning
+Missing input or output delay  
+An output delay is missing on led[4] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#68 Warning
+Missing input or output delay  
+An output delay is missing on led[5] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#69 Warning
+Missing input or output delay  
+An output delay is missing on led[6] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+TIMING-18#70 Warning
+Missing input or output delay  
+An output delay is missing on led[7] relative to the rising and/or falling clock edge(s) of clk_0.
+Related violations: <none>
+
+

@@ -1,0 +1,43 @@
+testbench test_alu {
+    alu alu
+    const TEST_VALUES_ALU = $reverse(
+        {
+            c{32d0,          32d0,          6h00, c{32d0,          1b1,1b0,1b0}}, // 00 ADD 0+0
+            c{32h7FFFFFFF,   32d1,          6h00, c{32h80000000,   1b0,1b1,1b1}}, // 01 ADD pos overflow
+            
+            c{32d7,          32d5,          6h01, c{32d2,          1b0,1b0,1b0}}, // 02 SUB 7-5
+            c{32h80000000,   32d1,          6h01, c{32h7FFFFFFF,   1b0,1b1,1b0}}, // 03 SUB neg overflow
+            
+            c{32d3,          32d4,          6h02, c{32d12,         1b0,1b0,1b0}}, // 04 MUL 3*4
+            c{32h80000000,   32d2,          6h02, c{32d0,          1b0,1b0,1b1}}, // 05 MUL 80000000*2
+            
+            c{32hF0F0F0F0,   32h0F0F0F0F,   6h18, c{32h00000000,   1b0,1b0,1b1}}, // 06 AND mask clears to zero
+            c{32hF0F0F0F0,   32h0F0F0F0F,   6h1E, c{32hFFFFFFFF,   1b0,1b0,1b1}}, // 07 OR fills all bits
+            c{32hAAAA5555,   32hFFFF0000,   6h16, c{32h55555555,   1b0,1b0,1b1}}, // 08 XOR pattern
+            
+            c{32d5,          32d7,          6h1A, c{32d5,          1b0,1b0,1b0}}, // 09 PASSA 5,7
+            
+            c{32d1,          32d3,          6h20, c{32d8,          1b0,1b0,1b0}}, // 10 SHL 1<<3
+            c{32d16,         32d1,          6h21, c{32d8,          1b0,1b0,1b0}}, // 11 SHR 16>>1
+            c{32h80000000,   32d1,          6h23, c{32hC0000000,   1b0,1b1,1b0}}, // 12 SRA 80000000>>1
+            
+            c{32d5,          32d5,          6h33, c{32d1,          1b1,1b0,1b0}}, // 13 CMPEQ 5==5
+            c{32d3,          32d7,          6h35, c{32d1,          1b0,1b0,1b1}}, // 14 CMPLT 3<7 true
+            c{32d5,          32d5,          6h37, c{32d1,          1b1,1b0,1b0}}  // 15 CMPLE 5<=5
+        }
+    )
+    
+    test aluTest {
+         repeat(i, 16){
+            alu.a = TEST_VALUES_ALU[i][104:73]
+            alu.b = TEST_VALUES_ALU[i][72:41]
+            alu.alufn = TEST_VALUES_ALU[i][40:35]
+            $tick()
+            $assert(alu.out == TEST_VALUES_ALU[i][34:3])
+            $assert(alu.z == TEST_VALUES_ALU[i][2])
+            $assert(alu.v == TEST_VALUES_ALU[i][1])
+            $assert(alu.n == TEST_VALUES_ALU[i][0])
+            $print("PASS test case: %d", i+1)
+        }
+    }
+}

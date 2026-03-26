@@ -1,0 +1,77 @@
+module tester_auto_datapath #(
+        NUM_TESTS = 8 : NUM_TESTS > 0,
+        SIZE = 32 : SIZE > 0 
+    )(
+    input clk, // clock
+    input rst,  // reset
+    input alufn[6],
+    
+    input force_error_mask, // signal to force an error
+    
+    // Control signals from ControlUnit
+    input index_load_zero, // when to reset index to 0
+    input index_inc, // when to increment index
+    input sample_enable, // when to sample inputs for alu
+
+    output alu_s[SIZE], // alu's s value
+    output z,
+    output v,
+    output n,
+    output test_s[SIZE], // expected test s value
+    
+    output curr_index[$width(NUM_TESTS)], // index value
+    output last_index, // whether we are on the last index
+    output success // whether comparison has succeeded
+) {
+    
+    // Initialise testing modules
+    dff index[$width(NUM_TESTS)] (.clk(clk), .rst(rst), #INIT(0))
+    tester_auto_testvalues test_values(.index(index.q), .alufn(alufn))
+    tester_auto_comparator comparator(#SIZE(SIZE))
+    
+    // Create ALU
+    alu alu(.alufn(alufn))
+    
+    // Create testing pipeline to simulate latency for the test ALU value
+    reg_en test_pipeline(.clk(clk), .rst(rst), #SIZE(SIZE), .en(sample_enable))
+    
+    always {
+        // Update index
+        if (index_load_zero) // Reset on INIT
+            index.d = 0
+        else if (index_inc) // Next on CHECK
+            index.d = index.q + 1b1
+        else // Stay on the same index
+            index.d = index.q
+        
+        // Update values in ALU
+        alu.a = test_values.a
+        alu.b = test_values.b
+        
+        // Simulate latency for test result, delays by 1 clock tick
+        // Such that it arrives at comparator at same time as ALU finishes computing
+        test_pipeline.d = test_values.s
+        test_s = test_pipeline.q
+        
+        // Output values
+        curr_index = index.q
+        last_index = index.q == NUM_TESTS - 1
+        alu_s = alu.out
+        z = alu.z
+        v = alu.v
+        n = alu.n
+        
+        // Begin comparison
+        comparator.x = alu.out
+        comparator.y = test_pipeline.q
+        
+        // If we want to force an error, flip last bit of the adder output
+        if (force_error_mask) {
+            comparator.x = alu.out ^ 8h01
+            alu_s = alu.out ^ 8h01
+        }
+        
+        // Output success if comparison succeeded
+        success = comparator.success
+    }
+}

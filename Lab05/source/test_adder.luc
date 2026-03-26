@@ -1,0 +1,35 @@
+testbench test_adder {
+    adder adder(#SIZE(32))
+    const TEST_CASES_ADDER = $reverse({
+        // 1. basic add
+        c{32d10,          32d3,           1b0, 32d13,          1b0, 1b0, 1b0},
+        // 2. add to zero
+        c{32d5,           -32d5,          1b0, 32d0,           1b1, 1b0, 1b0},
+        // 3. negative result (no overflow)
+        c{32d3,           -32d10,         1b0, -32d7,          1b0, 1b0, 1b1},
+        // 4. positive overflow (max int + 1)
+        c{32h7FFFFFFF,    32d1,           1b0, 32h80000000,    1b0, 1b1, 1b1},
+        // 5. negative overflow (min int - 1)
+        c{32h80000000,    32d1,           1b1, 32h7FFFFFFF,    1b0, 1b1, 1b0},
+        // 6. subtraction resulting zero
+        c{32d42,          32d42,          1b1, 32d0,           1b1, 1b0, 1b0},
+        // 7. subtraction producing negative
+        c{32d5,           32d8,           1b1, -32d3,          1b0, 1b0, 1b1},
+        // 8. subtraction overflow (large negative minus positive)
+        c{32h80000000,    32d1,           1b0, 32h80000001,    1b0, 1b0, 1b1}
+    }) // Reverse such that TEST_CASES_ADDER[0] gives test case 1
+    
+    test adderTest {  
+        repeat(i, 8){
+            adder.a = TEST_CASES_ADDER[i][99:68]
+            adder.b = TEST_CASES_ADDER[i][67:36]
+            adder.alufn0 = TEST_CASES_ADDER[i][35]
+            $tick()
+            $assert(adder.s == TEST_CASES_ADDER[i][34:3])
+            $assert(adder.z == TEST_CASES_ADDER[i][2])
+            $assert(adder.v == TEST_CASES_ADDER[i][1])
+            $assert(adder.n == TEST_CASES_ADDER[i][0])
+            $print("PASS test case: %d", i+1)
+        }
+    }
+}

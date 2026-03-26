@@ -1,0 +1,692 @@
+
+*** Running vivado
+    with args -log alchitry_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source alchitry_top.tcl
+
+
+
+****** Vivado v2025.2 (64-bit)
+  **** SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+  **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+  **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+  **** Start of session at: Tue Mar 24 22:10:09 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source alchitry_top.tcl -notrace
+Command: synth_design -top alchitry_top -part xc7a35tftg256-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tftg256-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 19492
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1258.410 ; gain = 541.074
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/alchitry_top.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+	Parameter STAGES bound to: 3'b100 
+INFO: [Synth 8-6155] done synthesizing module 'reset_conditioner' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'button_conditioner' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/button_conditioner.sv:7]
+	Parameter CLK_FREQ bound to: 27'b101111101011110000100000000 
+	Parameter MIN_DELAY bound to: 5'b10100 
+	Parameter NUM_SYNC bound to: 2'b10 
+INFO: [Synth 8-6157] synthesizing module 'pipeline' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/pipeline.sv:7]
+	Parameter DEPTH bound to: 2'b10 
+INFO: [Synth 8-6155] done synthesizing module 'pipeline' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/pipeline.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'button_conditioner' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/button_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'tester_manual_alu' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_manual_alu.sv:7]
+	Parameter CLK_FREQ bound to: 27'b101111101011110000100000000 
+INFO: [Synth 8-6157] synthesizing module 'alu' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'mux2to1' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/mux2to1.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'mux2to1' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/mux2to1.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'mux4to1' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/mux4to1.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'mux4to1' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/mux4to1.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'adder' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/adder.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6157] synthesizing module 'rca' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/rca.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6157] synthesizing module 'fa' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/fa.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'fa' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/fa.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'rca' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/rca.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'adder' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/adder.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'compare' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/compare.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'compare' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/compare.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'boolean' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/boolean.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'boolean' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/boolean.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'shifter' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/shifter.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6157] synthesizing module 'left_shifter' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/left_shifter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 5'b10000 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized0' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 4'b1000 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized0' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized1' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 3'b100 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized1' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized2' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 2'b10 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized2' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized3' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 1'b1 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized3' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'left_shifter' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/left_shifter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'bit_reverse' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/bit_reverse.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'bit_reverse' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/bit_reverse.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'shifter' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/shifter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'multiplier' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/multiplier.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b000001 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized4' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b000001 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized4' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized0' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b000010 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized5' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b000010 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized5' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized0' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized1' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b000011 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized6' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b000011 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized6' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized1' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized2' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b000100 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized7' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b000100 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized7' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized2' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized3' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b000101 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized8' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b000101 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized8' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized3' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized4' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b000110 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized9' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b000110 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized9' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized4' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized5' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b000111 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized10' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b000111 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized10' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized5' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized6' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b001000 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized11' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b001000 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized11' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized6' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized7' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b001001 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized12' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b001001 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized12' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized7' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized8' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b001010 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized13' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b001010 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized13' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized8' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized9' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b001011 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized14' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b001011 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized14' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized9' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized10' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b001100 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized15' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b001100 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized15' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized10' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized11' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b001101 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized16' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b001101 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized16' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized11' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized12' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b001110 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized17' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b001110 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized17' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized12' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized13' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b001111 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized18' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b001111 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized18' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized13' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized14' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b010000 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized19' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b010000 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized19' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized14' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized15' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b010001 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized20' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b010001 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized20' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized15' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized16' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b010010 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized21' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b010010 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized21' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized16' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized17' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b010011 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized22' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b010011 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized22' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized17' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized18' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b010100 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized23' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b010100 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized23' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized18' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized19' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b010101 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized24' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b010101 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized24' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized19' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized20' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b010110 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized25' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b010110 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized25' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized20' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized21' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b010111 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized26' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b010111 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized26' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized21' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized22' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b011000 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized27' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b011000 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized27' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized22' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized23' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b011001 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized28' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b011001 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized28' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized23' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized24' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b011010 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized29' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b011010 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized29' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized24' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized25' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b011011 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized30' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b011011 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized30' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized25' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized26' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b011100 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized31' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b011100 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized31' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized26' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized27' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b011101 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized32' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b011101 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized32' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized27' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized28' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b011110 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized33' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b011110 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized33' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized28' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_product__parameterized29' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter SHIFT bound to: 6'b011111 
+INFO: [Synth 8-6157] synthesizing module 'x_bit_left_shifter__parameterized34' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+	Parameter SHIFT bound to: 6'b011111 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'x_bit_left_shifter__parameterized34' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/x_bit_left_shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_product__parameterized29' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/partial_product.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'multiplier' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/multiplier.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'tester_manual_fsm' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_manual_fsm.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'edge_detector' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/edge_detector.sv:7]
+	Parameter RISE bound to: 1'b1 
+	Parameter FALL bound to: 1'b0 
+INFO: [Synth 8-6155] done synthesizing module 'edge_detector' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/edge_detector.sv:7]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_manual_fsm.sv:60]
+INFO: [Synth 8-6155] done synthesizing module 'tester_manual_fsm' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_manual_fsm.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'tester_manual_alu' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_manual_alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'tester_auto_alu' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'counter' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/counter.sv:7]
+	Parameter SIZE bound to: 1'b1 
+	Parameter DIV bound to: 5'b11010 
+	Parameter TOP bound to: 1'b0 
+	Parameter UP bound to: 1'b1 
+INFO: [Synth 8-6155] done synthesizing module 'counter' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'tester_auto_datapath' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_datapath.sv:7]
+	Parameter NUM_TESTS bound to: 4'b1000 
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6157] synthesizing module 'tester_auto_testvalues' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_testvalues.sv:7]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_testvalues.sv:32]
+INFO: [Synth 8-6155] done synthesizing module 'tester_auto_testvalues' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_testvalues.sv:7]
+WARNING: [Synth 8-689] width (4) of port connection 'index' does not match port width (3) of module 'tester_auto_testvalues' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_datapath.sv:33]
+INFO: [Synth 8-6157] synthesizing module 'tester_auto_comparator' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_comparator.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'tester_auto_comparator' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_comparator.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'reg_en' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/reg_en.sv:7]
+	Parameter SIZE bound to: 6'b100000 
+	Parameter INIT bound to: 1'b0 
+INFO: [Synth 8-6155] done synthesizing module 'reg_en' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/reg_en.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'tester_auto_datapath' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_datapath.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'tester_auto_controlunit' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_controlunit.sv:7]
+INFO: [Synth 8-155] case statement is not full and has no default [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_controlunit.sv:68]
+INFO: [Synth 8-6155] done synthesizing module 'tester_auto_controlunit' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_controlunit.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'seven_segment_encoder' [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/seven_segment_encoder.sv:7]
+INFO: [Synth 8-226] default block is never used [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/seven_segment_encoder.sv:13]
+INFO: [Synth 8-6155] done synthesizing module 'seven_segment_encoder' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/seven_segment_encoder.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'tester_auto_alu' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/tester_auto_alu.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.srcs/sources_1/imports/source/alchitry_top.sv:7]
+WARNING: [Synth 8-7129] Port b[31] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[30] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[29] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[28] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[27] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[26] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[25] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[24] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[23] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[22] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[21] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[20] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[19] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[18] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[17] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[16] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[15] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[14] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[13] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[12] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[11] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[10] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[9] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[8] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[7] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[6] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port b[5] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[5] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[4] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[3] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[2] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[5] in module boolean is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[4] in module boolean is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[5] in module compare is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[4] in module compare is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[3] in module compare is either unconnected or has no load
+WARNING: [Synth 8-7129] Port alufn[0] in module compare is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[2] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_button[0] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][7] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][7] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][6] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][5] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][4] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][3] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][2] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][1] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][0] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][7] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][6] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][5] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][4] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][3] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][2] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][1] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][0] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][7] in module tester_manual_fsm is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][6] in module tester_manual_fsm is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1394.395 ; gain = 677.059
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1394.395 ; gain = 677.059
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1394.395 ; gain = 677.059
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.155 . Memory (MB): peak = 1394.395 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/constraint/alchitry.xdc]
+Finished Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/constraint/alchitry.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/constraint/alchitry.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/alchitry_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/alchitry_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/constraint/au_props.xdc]
+Finished Parsing XDC File [D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/constraint/au_props.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.016 . Memory (MB): peak = 1475.902 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.100 . Memory (MB): peak = 1475.902 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1475.902 ; gain = 758.566
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tftg256-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1475.902 ; gain = 758.566
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1475.902 ; gain = 758.566
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'D_states_q_reg' in module 'tester_manual_fsm'
+INFO: [Synth 8-802] inferred FSM for state register 'D_states_q_reg' in module 'tester_auto_controlunit'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                           000001 |                              000
+                 iSTATE0 |                           000010 |                              001
+                 iSTATE1 |                           000100 |                              010
+                 iSTATE2 |                           001000 |                              011
+                 iSTATE3 |                           010000 |                              100
+                 iSTATE4 |                           100000 |                              101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'D_states_q_reg' using encoding 'one-hot' in module 'tester_manual_fsm'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 iSTATE4 |                              000 |                              000
+                  iSTATE |                              001 |                              001
+                 iSTATE0 |                              010 |                              011
+                 iSTATE1 |                              011 |                              100
+                 iSTATE2 |                              100 |                              110
+                 iSTATE3 |                              101 |                              101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'D_states_q_reg' using encoding 'sequential' in module 'tester_auto_controlunit'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1475.902 ; gain = 758.566
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    4 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 3     
+	   3 Input      1 Bit         XORs := 2048  
+	   2 Input      1 Bit         XORs := 2     
++---Registers : 
+	               32 Bit    Registers := 3     
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   8 Input   96 Bit        Muxes := 12    
+	   8 Input   95 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 3     
+	   6 Input   32 Bit        Muxes := 6     
+	   6 Input    8 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 12    
+	   6 Input    6 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 1     
+	   6 Input    3 Bit        Muxes := 3     
+	   2 Input    3 Bit        Muxes := 3     
+	   2 Input    1 Bit        Muxes := 1     
+	   6 Input    1 Bit        Muxes := 6     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7129] Port io_dip[2][7] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][7] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][6] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][5] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][4] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][3] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][2] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][1] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[1][0] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][7] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][6] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][5] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][4] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][3] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][2] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][1] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[0][0] in module tester_auto_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][7] in module tester_manual_alu is either unconnected or has no load
+WARNING: [Synth 8-7129] Port io_dip[2][6] in module tester_manual_alu is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:22 ; elapsed = 00:01:27 . Memory (MB): peak = 1741.043 ; gain = 1023.707
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:27 ; elapsed = 00:01:32 . Memory (MB): peak = 1741.043 ; gain = 1023.707
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:02:03 ; elapsed = 00:02:10 . Memory (MB): peak = 2049.660 ; gain = 1332.324
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:02:08 ; elapsed = 00:02:15 . Memory (MB): peak = 2747.254 ; gain = 2029.918
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:02:11 ; elapsed = 00:02:19 . Memory (MB): peak = 2747.254 ; gain = 2029.918
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:02:11 ; elapsed = 00:02:19 . Memory (MB): peak = 2747.254 ; gain = 2029.918
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:11 ; elapsed = 00:02:19 . Memory (MB): peak = 2747.254 ; gain = 2029.918
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:02:11 ; elapsed = 00:02:19 . Memory (MB): peak = 2747.254 ; gain = 2029.918
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:02:12 ; elapsed = 00:02:19 . Memory (MB): peak = 2747.254 ; gain = 2029.918
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:02:12 ; elapsed = 00:02:19 . Memory (MB): peak = 2747.254 ; gain = 2029.918
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY4 |    16|
+|3     |LUT1   |     6|
+|4     |LUT2   |   367|
+|5     |LUT3   |   575|
+|6     |LUT4   |   271|
+|7     |LUT5   |   974|
+|8     |LUT6   |  1427|
+|9     |MUXF7  |    70|
+|10    |FDPE   |     4|
+|11    |FDRE   |   173|
+|12    |FDSE   |     1|
+|13    |IBUF   |    31|
+|14    |OBUF   |    45|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:02:12 ; elapsed = 00:02:19 . Memory (MB): peak = 2747.254 ; gain = 2029.918
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 19 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:02:02 ; elapsed = 00:02:15 . Memory (MB): peak = 2747.254 ; gain = 1948.410
+Synthesis Optimization Complete : Time (s): cpu = 00:02:12 ; elapsed = 00:02:19 . Memory (MB): peak = 2747.254 ; gain = 2029.918
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.026 . Memory (MB): peak = 2747.254 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 86 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2747.254 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 561348
+INFO: [Common 17-83] Releasing license: Synthesis
+211 Infos, 78 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:02:16 ; elapsed = 00:02:39 . Memory (MB): peak = 2747.254 ; gain = 2221.383
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 2747.254 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'D:/_Work/SUTD/CompStruct/alchitry/Lab05/build/vivado/Lab05.runs/synth_1/alchitry_top.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Mar 24 22:12:54 2026...

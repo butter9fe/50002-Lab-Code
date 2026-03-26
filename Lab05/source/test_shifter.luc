@@ -1,0 +1,32 @@
+testbench test_shifter {
+    shifter shifter
+    const TEST_CASES_SHIFT = $reverse({
+            // 1. SHL: simple left shift
+            c{32d1,           32d1,           2b00, 32d2},
+            // 2. SHL: overflow bits dropped
+            c{32h80000000,    32d1,           2b00, 32h00000000},
+            // 3. SHL: shift amount masked (33 -> 1)
+            c{32d1,           32d33,          2b00, 32d2},
+            // 4. SHR: simple logical right shift
+            c{32d8,           32d2,           2b01, 32d2},
+            // 5. SHR: negative value zero-filled
+            c{32h80000000,    32d1,           2b01, 32h40000000},
+            // 6. SHR: shift amount masked (32 -> 0, no shift)
+            c{32h80000000,    32d32,          2b01, 32h80000000},
+            // 7. SRA: arithmetic right shift with sign extend
+            c{32h80000000,    32d1,           2b11, 32hC0000000},
+            // 8. SRA: large shift yields all ones
+            c{32h80000000,    32d31,          2b11, 32hFFFFFFFF}
+        })
+    
+    test shifterTest {
+        repeat (i, 7){
+            shifter.a  = TEST_CASES_SHIFT[i][97:66]
+            shifter.b  = TEST_CASES_SHIFT[i][65:34]
+            shifter.alufn = c{4b1000,TEST_CASES_SHIFT[i][33:32]}
+            $tick()
+            $assert(shifter.shift == TEST_CASES_SHIFT[i][31:0])
+            $print("PASS test case: %d", i+1)
+        }
+    }
+}

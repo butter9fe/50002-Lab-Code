@@ -1,0 +1,49 @@
+module alchitry_top (
+    input clk,              // 100MHz clock
+    input rst_n,            // reset button (active low)
+    output led[8],          // 8 user controllable LEDs
+    input usb_rx,           // USB->Serial input
+    output usb_tx,          // USB->Serial output
+    output io_led[3][8],    // LEDs on IO Shield
+    output io_segment[8],   // 7-segment LEDs on IO Shield
+    output io_select[4],    // Digit select on IO Shield
+    input io_button[5],     // 5 buttons on IO Shield
+    input io_dip[3][8]      // DIP switches on IO Shield
+) {
+    
+    sig rst                 // reset signal
+    
+    const CLK_FREQ = $is_sim() ? 1000 : 100000000 // put 1000 for sim, 100000000 otherwise in hardware
+    
+    // Module instantiation
+    reset_conditioner reset_cond(.clk(clk)) // Reset conditioner
+    button_conditioner next_button(.clk(clk), #CLK_FREQ(CLK_FREQ), .in(io_button[0])) // Button conditioner
+    
+    // Create alu testers
+    tester_manual_alu alu_manual(.clk(clk), .rst(rst), .io_dip(io_dip), .next_button(next_button.out), .high_button(io_button[1]), #CLK_FREQ(CLK_FREQ)) 
+    tester_auto_alu alu_auto(.clk(clk), .rst(rst), .io_button(io_button), .io_dip(io_dip), .next_button(next_button.out))
+    // Create auto alu tester
+
+    always {
+        reset_cond.in = ~rst_n  // input raw inverted reset signal
+        rst = reset_cond.out    // conditioned reset    
+        usb_tx = usb_rx         // loop serial port
+        
+        led = 8h00 // turn LEDs off  
+        io_led = 3x{{8h00}}
+        io_segment = 8hff
+        io_select = 4hf
+        
+        // Display output based on mode
+        if (io_dip[2][7]) { // Manual Mode
+            io_segment = alu_manual.io_segment
+            io_select = alu_manual.io_select
+            io_led = alu_manual.io_led
+        } else { // Automatic Mode
+            io_segment = alu_auto.io_segment
+            io_select = alu_auto.io_select
+            io_led = alu_auto.io_led
+            led = alu_auto.led
+        }
+    }
+}
